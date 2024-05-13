@@ -1,5 +1,0 @@
-#/bin/sh        
-#  
-# ----------------------------------------------------- 
-
-thorium-browser --app=https://chat.openai.com
