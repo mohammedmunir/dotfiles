@@ -2,7 +2,7 @@
 # Install dotfiles
 # ------------------------------------------------------
 
-source .install/library.sh
+source library.sh
 
 # name="$1"
 # symlink="$2";

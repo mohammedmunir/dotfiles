@@ -1,3 +1,5 @@
+source library.sh
+
 packagesPacman=(
     "neovim" 
     "mpv" 
