@@ -58,7 +58,7 @@ super + F12
 # SUPER + ... KEYS
 #################################################################
 
-s#Browser
+#Browser
 super + w
     thorium-browser
 
