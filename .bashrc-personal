@@ -27,7 +27,7 @@ alias dot="cd ~/dotfiles"
 alias Qtile='startx'
 alias QtileWayland='qtile start -b wayland'
 alias xfce='exec startxfce4'
-alias chadwm='startx ~/.config/arco-chadwm/scripts/run.sh'
+alias chadwm='startx ~/dotfiles/arco-chadwm/scripts/run.sh'
 alias xdwm='startx ~/.suckless/dwm/scripts/run.sh'
 
 # -----------------------------------------------------

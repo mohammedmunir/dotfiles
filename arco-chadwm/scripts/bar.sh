@@ -6,7 +6,7 @@
 interval=0
 
 # load colors
-. ~/.config/arco-chadwm/scripts/bar_themes/onedark
+. ~/.config/arco-chadwm/scripts/bar_themes/dracula
 
 cpu() {
   cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
@@ -59,6 +59,6 @@ while true; do
   [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ] && updates=$(pkg_updates)
   interval=$((interval + 1))
 
-#  sleep 3 && xsetroot -name "$updates $(battery) $(brightness) $(cpu) $(mem) $(wlan) $(clock)"
-  sleep 3 && xsetroot -name "$updates  $(cpu) $(mem) $(clock)"
+  sleep 3 && xsetroot -name "$updates $(battery) $(brightness) $(cpu) $(mem) $(wlan) $(clock)"
+# sleep 3 && xsetroot -name "$wlan $brigtness $updates  $(cpu) $(mem) $(clock)"
 done
