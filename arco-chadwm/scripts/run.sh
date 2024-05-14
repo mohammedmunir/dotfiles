@@ -25,10 +25,11 @@ feh --bg-fill ~/.config/arco-chadwm/wallpaper/chadwm1.jpg &
 #wallpaper for other Arch based systems
 #feh --bg-fill /usr/share/archlinux-tweak-tool/data/wallpaper/wallpaper.png &
 #run applications from startup
-#run "discord"
+run "discord"
 #run "telegram-desktop"
 #run "/usr/bin/octopi-notifier"
 
+xautolock -time 10 -locker slock &
 
 pkill bar.sh
 ~/dotfiles/arco-chadwm/scripts/bar.sh &
