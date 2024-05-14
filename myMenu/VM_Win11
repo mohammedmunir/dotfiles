@@ -3,3 +3,5 @@
 # ----------------------------------------------------- 
 
 ~/dotfiles/scripts/cs_vm_setup.sh
+sleep 30
+~/dotfiles/scripts/configure_gateway.sh
