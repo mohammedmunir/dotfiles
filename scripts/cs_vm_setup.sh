@@ -10,6 +10,18 @@
 
 notify-send "setting ip for vm"
 
+# Enable IP forwarding
+echo "1" | sudo tee /proc/sys/net/ipv4/ip_forward
+
+# Configure IP addresses
+sudo ip addr add 10.0.1.200/24 dev enp0s31f6
+
+# Enable NAT
+sudo iptables -t nat -A POSTROUTING -o wlp2s0 -j MASQUERADE
+
+# Configure routing
+sudo ip route add default via 10.0.1.1 dev wlp2s0
+
 tmp=$(virsh --connect qemu:///system list | grep $vm_name | awk '{ print $3}')
 
 if ([ "x$tmp" == "x" ] || [ "x$tmp" != "xrunning" ])
@@ -17,7 +29,9 @@ then
     virsh --connect qemu:///system start win11
     echo "Virtual Machine win11 is starting... Waiting 200 for booting up."
     notify-send "Virtual Machine win11 is starting..." "Waiting 200 for booting up."
-    sleep 2222222222222222222222nd "Virtual Machine win11 is already running." "Launching xfreerdp now!"
+    sleep 200
+else
+    notify-send "Virtual Machine win11 is already running." "Launching xfreerdp now!"
     echo "Starting xfreerdp now..."
 fi
 
