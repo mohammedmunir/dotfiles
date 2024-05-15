@@ -7,10 +7,10 @@ echo "1" | sudo tee /proc/sys/net/ipv4/ip_forward
 sudo ip addr add 10.0.1.200/24 dev enp0s31f6
 
 # Enable NAT
-sudo iptables -t nat -A POSTROUTING -o wlp3s0 -j MASQUERADE
+sudo iptables -t nat -A POSTROUTING -o wlp2s0 -j MASQUERADE
 
 # Configure routing
-sudo ip route add default via 10.0.1.1 dev wlp3s0
+sudo ip route add default via 10.0.1.1 dev wlp2s0
 
 # Update DNS settings
 echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
