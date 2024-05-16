@@ -22,6 +22,8 @@ alias shotsel='scrot -s'
 alias wifi='nmtui'
 alias wdownload='sudo mount --bind ~/Downloads ~/.local/share/waydroid/data/media/0/Download'
 alias dot="cd ~/dotfiles"
+alias yt='exec ~/dotfiles/myMenu/YT'
+
 # Window Managers
 
 alias Qtile='startx'
