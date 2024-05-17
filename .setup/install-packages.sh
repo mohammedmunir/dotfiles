@@ -9,11 +9,13 @@ packagesPacman=(
     "brightnessctl"
     "qbittorrent"
     "torbrowser-launcher"
+    "fastfetch"
 );
 
 packagesYay=(
     "thorium-browser-bin" 
     "localsend-bin"
+    "zoxide"
 );
 
 
