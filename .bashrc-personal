@@ -186,19 +186,20 @@ fi
 # -----------------------------------------------------
 # START STARSHIP
 # -----------------------------------------------------
-eval "$(starship init bash)"
-
+#eval "$(starship init bash)"
+eval "$(zoxide init bash)"
 # -----------------------------------------------------
 # PYWAL
 # -----------------------------------------------------
-cat ~/.cache/wal/sequences
+#cat ~/.cache/wal/sequences
 
 # -----------------------------------------------------
-# PFETCH
+# fastfetch
 # -----------------------------------------------------
 echo ""
-#neofetch
+fastfetch
 
+bind '"\C-f":"zi\n"'
 
 # Enable bash programmable completion features in interactive shells
 if [ -f /usr/share/bash-completion/bash_completion ]; then
