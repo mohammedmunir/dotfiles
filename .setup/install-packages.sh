@@ -13,7 +13,7 @@ packagesPacman=(
 
 packagesYay=(
     "thorium-browser-bin" 
-
+    "localsend-bin"
 );
 
 
