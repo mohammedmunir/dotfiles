@@ -10,7 +10,9 @@ packagesPacman=(
     "qbittorrent"
     "torbrowser-launcher"
     "fastfetch"
-    "Geany"
+    "geany"
+    "ripgrep"
+    "meld"
 );
 
 packagesYay=(
