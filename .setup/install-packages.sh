@@ -12,13 +12,15 @@ packagesPacman=(
     "fastfetch"
     "geany"
     "ripgrep"
-    "meld"
+    "meldyt"
+    "gvfs"
 );
 
 packagesYay=(
     "thorium-browser-bin" 
     "localsend-bin"
     "zoxide"
+
 );
 
 
