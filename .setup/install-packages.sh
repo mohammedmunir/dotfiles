@@ -12,8 +12,10 @@ packagesPacman=(
     "fastfetch"
     "geany"
     "ripgrep"
-    "meldyt"
+    "meld"
     "gvfs"
+    "xautolock"
+    "slock"
 );
 
 packagesYay=(
