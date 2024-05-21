@@ -6,9 +6,6 @@
 # -----------------------------------------------------
 # ~/.bashrc
 # -----------------------------------------------------
-
-colorscript random
-
 # -----------------------------------------------------
 # ALIASES
 # -----------------------------------------------------
@@ -72,7 +69,7 @@ alias confq='nvim ~/dotfiles/qtile/config.py'
 alias confp='nvim ~/dotfiles/picom/picom.conf'
 alias confb='nvim ~/dotfiles/.bashrc'
 alias confb='nvim ~/dotfiles/polybar/config.ini'
-
+alias bashp='nvim ~/dotfiles/.bashrc-personal'
 
 
 # EDIT NOTES
@@ -94,7 +91,6 @@ alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
 # Expand the history size
 export HISTFILESIZE=10000
 export HISTSIZE=500
-export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export PATH="/usr/lib/ccache/bin/:$PATH"
 
 
@@ -175,13 +171,6 @@ lazyg() {
 
 #Autojump
 
-if [ -f "/usr/share/autojump/autojump.sh" ]; then
-	. /usr/share/autojump/autojump.sh
-elif [ -f "/usr/share/autojump/autojump.bash" ]; then
-	. /usr/share/autojump/autojump.bash
-else
-	echo "can't found the autojump script"
-fi
 
 # -----------------------------------------------------
 # START STARSHIP
