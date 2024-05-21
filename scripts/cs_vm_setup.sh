@@ -5,41 +5,37 @@
 # | |__| (_| | |_| | | | | (__| | | |   \ V / | |  | | 
 # |_____\__,_|\__,_|_| |_|\___|_| |_|    \_/  |_|  |_| 
 #                                                      
-#  
 # ----------------------------------------------------- 
 
-notify-send "setting ip for vm"
+vm_name="win11-base"
+win11user="abu"
+win11pass="munir52"
 
-# Enable IP forwarding
-echo "1" | sudo tee /proc/sys/net/ipv4/ip_forward
+# Check the status of the VM
+vm_status=$(virsh --connect qemu:///system domstate $vm_name)
 
-# Configure IP addresses
-sudo ip addr add 10.0.1.200/24 dev enp0s31f6
-
-# Enable NAT
-sudo iptables -t nat -A POSTROUTING -o wlp2s0 -j MASQUERADE
-
-# Configure routing
-sudo ip route add default via 10.0.1.1 dev wlp2s0
-
-tmp=$(virsh --connect qemu:///system list | grep $vm_name | awk '{ print $3}')
-
-if ([ "x$tmp" == "x" ] || [ "x$tmp" != "xrunning" ])
-then
-    virsh --connect qemu:///system start win11
-    echo "Virtual Machine win11 is starting... Waiting 200 for booting up."
-    notify-send "Virtual Machine win11 is starting..." "Waiting 200 for booting up."
+if [ "$vm_status" != "running" ]; then
+    virsh --connect qemu:///system start $vm_name
+    echo "Virtual Machine $vm_name is starting... Waiting 200 seconds for booting up."
+    notify-send "Virtual Machine $vm_name is starting..." "Waiting 200 seconds for booting up."
     sleep 200
 else
-    notify-send "Virtual Machine win11 is already running." "Launching xfreerdp now!"
+    notify-send "Virtual Machine $vm_name is already running." "Launching xfreerdp now!"
     echo "Starting xfreerdp now..."
 fi
 
+# Wait for the VM to be fully up and running
 sleep 30
 
-win11user="abu"
-win11pass="munir52"
-ipadd="192.168.122.137"
-vm_name="win11"
+# Find the IP address of the VM
+mac_address=$(virsh --connect qemu:///system domiflist $vm_name | grep -oP '([0-9a-f]{2}:){5}[0-9a-f]{2}')
+ip_address=$(arp -an | grep "$mac_address" | awk '{print $2}' | tr -d '()')
 
-xfreerdp3 -grab-keyboard /v:$ipadd /size:100% /cert:ignore /u:$win11user /p:$win11pass /d: /dynamic-resolution &
+if [ -z "$ip_address" ]; then
+    echo "Failed to obtain IP address for $vm_name."
+    notify-send "Failed to obtain IP address for $vm_name."
+    exit 1
+fi
+
+# Launch xfreerdp with the obtained IP address
+xfreerdp3 /grab-keyboard /v:$ip_address /size:100% /cert:ignore /u:$win11user /p:$win11pass /d: /dynamic-resolution &

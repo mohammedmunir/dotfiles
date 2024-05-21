@@ -31,6 +31,18 @@ run "discord"
 
 xautolock -time 10 -locker slock &
 
+# # Check if hostname is 'abu-desk'
+# if [ "$(hostname)" = "abu-desk" ]; then
+#     # Set network port to static IP - gateway
+#     sudo ip addr add 10.0.1.200/24 dev enp0s31f6
+#     # Start the win11-base VM in the background
+#     (
+#         vm_name="win11-base"
+#         virsh --connect qemu:///system start $vm_name
+#     ) &
+# fi
+
 pkill bar.sh
 ~/dotfiles/arco-chadwm/scripts/bar.sh &
 while type chadwm >/dev/null; do chadwm && continue || break; done
+
