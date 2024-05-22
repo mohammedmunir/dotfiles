@@ -6,6 +6,7 @@
 # -----------------------------------------------------
 # ~/.bashrc
 # -----------------------------------------------------
+
 # -----------------------------------------------------
 # ALIASES
 # -----------------------------------------------------
@@ -66,10 +67,8 @@ alias vmstatus='virsh --connect qemu:///system list --all'
 # EDIT CONFIG FILES
 
 alias confq='nvim ~/dotfiles/qtile/config.py'
-alias confp='nvim ~/dotfiles/picom/picom.conf'
-alias confb='nvim ~/dotfiles/.bashrc'
-alias confb='nvim ~/dotfiles/polybar/config.ini'
-alias bashp='nvim ~/dotfiles/.bashrc-personal'
+alias confb='nvim ~/dotfiles/.bashrc-personal'
+alias confp='nvim ~/dotfiles/.setup/install-packages.sh'
 
 
 # EDIT NOTES
@@ -93,7 +92,11 @@ export HISTFILESIZE=10000
 export HISTSIZE=500
 export PATH="/usr/lib/ccache/bin/:$PATH"
 
-
+#try to unmute audio
+{
+	amixer sset Master unmute
+	amixer sset Master 100%
+}
 
 
 # Copy file with a progress bar
