@@ -93,6 +93,7 @@ export HISTSIZE=500
 export PATH="/usr/lib/ccache/bin/:$PATH"
 
 #try to unmute audio
+mute-all()
 {
 	amixer sset Master unmute
 	amixer sset Master 100%
