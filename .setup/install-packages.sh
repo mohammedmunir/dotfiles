@@ -16,11 +16,16 @@ packagesPacman=(
     "gvfs"
     "xautolock"
     "slock"
+    "thunar-volman"
+    "mtpfs"
+    "gvfs-mtp"
+    "android-file-transfer"
 );
 
 packagesYay=(
     "thorium-browser-bin" 
     "localsend-bin"
+    "jmtpfs"
     "zoxide"
 
 );
