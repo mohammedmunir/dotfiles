@@ -70,6 +70,8 @@ alias confq='nvim ~/dotfiles/qtile/config.py'
 alias confb='nvim ~/dotfiles/.bashrc-personal'
 alias confp='nvim ~/dotfiles/.setup/install-packages.sh'
 
+# Cat Config Files
+alias catb='cat ~/dotfiles/.bashrc-personal'
 
 # EDIT NOTES
 alias notes='vim ~/notes.txt'
