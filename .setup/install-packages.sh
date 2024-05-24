@@ -24,13 +24,9 @@ packagesPacman=(
     "unzip"
 );
 
-packagesYay=(
-    "thorium-browser-bin" 
-    "localsend-bin"
-    "jmtpfs"
-    "zoxide"
-
-);
+packagesToRemove=(
+    "sublime-text-4" 
+ );
 
 
 
@@ -50,4 +46,5 @@ EOF
 echo -e "${NONE}"
 _installPackagesPacman "${packagesPacman[@]}";
 _installPackagesYay "${packagesYay[@]}";
+_removePackagesPacman "${packagesToRemove[@]}";
 echo ""

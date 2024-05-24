@@ -35,7 +35,7 @@ _isInstalledYay() {
 }
 
 # ------------------------------------------------------
-# Function Install all package if not installed
+# Function Install all packages if not installed
 # ------------------------------------------------------
 _installPackagesPacman() {
     toInstall=();
@@ -54,7 +54,7 @@ _installPackagesPacman() {
         return;
     fi;
 
-    printf "Package not installed:\n%s\n" "${toInstall[@]}";
+    printf "Packages not installed:\n%s\n" "${toInstall[@]}";
     sudo pacman --noconfirm -S "${toInstall[@]}";
 }
 
@@ -71,14 +71,58 @@ _installPackagesYay() {
     done;
 
     if [[ "${toInstall[@]}" == "" ]] ; then
-        # echo "All packages are already installed.";
+        # echo "All AUR packages are already installed.";
         return;
     fi;
 
-    printf "AUR packags not installed:\n%s\n" "${toInstall[@]}";
+    printf "AUR packages not installed:\n%s\n" "${toInstall[@]}";
     yay --noconfirm -S "${toInstall[@]}";
 }
 
+# ------------------------------------------------------
+# Function Remove packages if installed
+# ------------------------------------------------------
+_removePackagesPacman() {
+    toRemove=();
+
+    for pkg; do
+        if [[ $(_isInstalledPacman "${pkg}") == 1 ]]; then
+            echo "${pkg} is not installed.";
+            continue;
+        fi;
+
+        toRemove+=("${pkg}");
+    done;
+
+    if [[ "${toRemove[@]}" == "" ]] ; then
+        # echo "No pacman packages to remove.";
+        return;
+    fi;
+
+    printf "Packages to be removed:\n%s\n" "${toRemove[@]}";
+    sudo pacman --noconfirm -R "${toRemove[@]}";
+}
+
+_removePackagesYay() {
+    toRemove=();
+
+    for pkg; do
+        if [[ $(_isInstalledYay "${pkg}") == 1 ]]; then
+            echo "${pkg} is not installed.";
+            continue;
+        fi;
+
+        toRemove+=("${pkg}");
+    done;
+
+    if [[ "${toRemove[@]}" == "" ]] ; then
+        # echo "No AUR packages to remove.";
+        return;
+    fi;
+
+    printf "AUR packages to be removed:\n%s\n" "${toRemove[@]}";
+    yay --noconfirm -R "${toRemove[@]}";
+}
 
 # ------------------------------------------------------
 # Create symbolic links
