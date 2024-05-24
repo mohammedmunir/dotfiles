@@ -21,6 +21,7 @@ packagesPacman=(
     "gvfs-mtp"
     "android-file-transfer"
     "visual-studio-code-bin"
+    "unzip"
 );
 
 packagesYay=(
