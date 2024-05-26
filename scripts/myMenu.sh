@@ -1,7 +1,7 @@
 #!/bin/bash
 # ----------------------------------------------------- 
 
-selected=$(ls -1 ~/dotfiles/myMenu  | rofi -dmenu -p "mymenu")
+selected=$(ls -1 ~/dotfiles/myMenu  | rofi -dmenu -p "mymenu" -i)
 
 
 if [ "$selected" ]; then
