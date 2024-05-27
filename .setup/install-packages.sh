@@ -26,6 +26,7 @@ packagesPacman=(
 
 packagesToRemove=(
     "sublime-text-4" 
+    "genymotion"
  );
 
 
