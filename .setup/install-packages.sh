@@ -24,6 +24,7 @@ packagesPacman=(
     "unzip"
     "scrot"
     "flameshot"
+    "arcolinux-fastfetch-git"
 );
 
 packagesToRemove=(
