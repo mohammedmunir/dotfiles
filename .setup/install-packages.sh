@@ -24,6 +24,7 @@ packagesPacman=(
     "unzip"
     "scrot"
     "flameshot"
+    "arcolinux-root-git"
     "arcolinux-fastfetch-git"
 );
 
