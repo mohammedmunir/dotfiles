@@ -22,6 +22,8 @@ packagesPacman=(
     "android-file-transfer"
     "visual-studio-code-bin"
     "unzip"
+    "scrot"
+    "flameshot"
 );
 
 packagesToRemove=(
