@@ -1,0 +1,14 @@
+continue.continue
+dart-code.dart-code
+dart-code.flutter
+devsense.composer-php-vscode
+devsense.intelli-php-vscode
+devsense.phptools-vscode
+devsense.profiler-php-vscode
+donjayamanne.githistory
+ms-azuretools.vscode-docker
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-vscode-remote.remote-containers
+natizyskunk.sftp
