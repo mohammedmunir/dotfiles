@@ -26,6 +26,7 @@ packagesPacman=(
     "flameshot"
     "arcolinux-root-git"
     "arcolinux-fastfetch-git"
+    "weston"
 );
 
 packagesToRemove=(
