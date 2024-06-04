@@ -30,9 +30,12 @@ packagesPacman=(
     "wttr"
 );
 
+packagesYay=(
+    "genymotion"
+);
+
 packagesToRemove=(
     "sublime-text-4" 
-    "genymotion"
  );
 
 
@@ -55,3 +58,7 @@ _installPackagesPacman "${packagesPacman[@]}";
 _installPackagesYay "${packagesYay[@]}";
 _removePackagesPacman "${packagesToRemove[@]}";
 echo ""
+
+echo "setting defualt wttr"
+wttr -sdef "Glasgow,uk"
+
