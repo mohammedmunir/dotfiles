@@ -27,6 +27,7 @@ packagesPacman=(
     "arcolinux-root-git"
     "arcolinux-fastfetch-git"
     "weston"
+    "wttr"
 );
 
 packagesToRemove=(
