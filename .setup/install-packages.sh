@@ -28,7 +28,7 @@ packagesPacman=(
     "arcolinux-fastfetch-git"
     "weston"
     "wttr"
-    "gpt4all-chat-git"
+    "ollama"
 );
 
 packagesYay=(
