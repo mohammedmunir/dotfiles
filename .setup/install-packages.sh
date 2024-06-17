@@ -33,6 +33,7 @@ packagesPacman=(
 
 packagesYay=(
     "genymotion"
+    "lazydocker"
 );
 
 packagesToRemove=(
