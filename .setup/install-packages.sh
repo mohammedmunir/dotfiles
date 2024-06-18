@@ -30,6 +30,7 @@ packagesPacman=(
     "wttr"
     "ollama"
     "yt-dlp"
+    "imagewriter"
 );
 
 packagesYay=(
