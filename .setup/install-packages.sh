@@ -29,6 +29,7 @@ packagesPacman=(
     "weston"
     "wttr"
     "ollama"
+    "yt-dlp"
 );
 
 packagesYay=(
