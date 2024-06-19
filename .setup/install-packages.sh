@@ -31,11 +31,13 @@ packagesPacman=(
     "ollama"
     "yt-dlp"
     "imagewriter"
+    "zoxide"
 );
 
 packagesYay=(
     "genymotion"
     "lazydocker"
+    "thorium-browser-bin"
 );
 
 packagesToRemove=(
