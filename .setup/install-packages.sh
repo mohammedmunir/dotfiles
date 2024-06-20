@@ -30,7 +30,7 @@ packagesPacman=(
     "wttr"
     "ollama"
     "yt-dlp"
-    "imagewriter"
+    "mintstick"
     "zoxide"
 );
 
