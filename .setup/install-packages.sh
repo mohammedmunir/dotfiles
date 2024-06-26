@@ -32,6 +32,7 @@ packagesPacman=(
     "yt-dlp"
     "mintstick"
     "zoxide"
+    "python-pip"
 );
 
 packagesYay=(
