@@ -19,4 +19,10 @@ sudo usermod -aG docker $USER
 echo "installing portainer..."
 docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 
+echo "watcher for docker"
+docker run -d \
+--name watchtower \
+-v /var/run/docker.sock:/var/run/docker.sock \
+containrrr/watchtower
+
 echo "Docker installation complete. Please log out and log back in to apply Docker group changes."
