@@ -264,6 +264,7 @@ alias dcup='docker-compose up -d'
 alias ds='docker start'
 
 alias penv='source ~/myenv/bin/activate'
+alias penv='aider --model ollama/deepseek-coder-v2'
 
 
 function git_reset_hard_main() {
