@@ -263,6 +263,9 @@ alias dprune='docker system prune -a'
 alias dcup='docker-compose up -d'
 alias ds='docker start'
 
+alias penv='source ~/myenv/bin/activate'
+
+
 function git_reset_hard_main() {
     git fetch origin
     git reset --hard origin/main
