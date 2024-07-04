@@ -19,6 +19,7 @@ run "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 picom &
 run "numlockx on"
 run "volumeicon"
+run "flameshot"
 #run "pa-applet"
 sxhkd -c ~/dotfiles/sxhkd/sxhkdrc &
 feh --bg-fill ~/.config/arco-chadwm/wallpaper/chadwm1.jpg &
