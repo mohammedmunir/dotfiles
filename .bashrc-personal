@@ -264,6 +264,8 @@ alias dcup='docker-compose up -d'
 alias ds='docker start'
 
 alias penv='source ~/myenv/bin/activate'
+alias penv310='source .venv/bin/activate'
+
 alias aider='aider --model ollama/deepseek-coder-v2'
 
 
@@ -272,3 +274,4 @@ function git_reset_hard_main() {
     git reset --hard origin/main
 }
 
+export HSA_OVERRIDE_GFX_VERSION=11.0.3
