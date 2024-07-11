@@ -275,3 +275,5 @@ function git_reset_hard_main() {
 }
 
 export HSA_OVERRIDE_GFX_VERSION=11.0.3
+
+~/miniconda3/bin/conda init bash

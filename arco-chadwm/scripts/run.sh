@@ -10,6 +10,7 @@ function run {
 
 
 run "nm-applet"
+run "variety"
 run "xfce4-power-manager"
 run "blueberry-tray"
 run "/usr/lib/xfce4/notifyd/xfce4-notifyd"
@@ -22,7 +23,9 @@ run "volumeicon"
 run "flameshot"
 #run "pa-applet"
 sxhkd -c ~/dotfiles/sxhkd/sxhkdrc &
-feh --bg-fill ~/.config/arco-chadwm/wallpaper/chadwm1.jpg &
+#feh --bg-fill ~/.config/arco-chadwm/wallpaper/chadwm1.jpg &
+feh --bg-fill /usr/share/backgrounds/archlinux/arch-wallpaper.jpg &
+feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &
 #wallpaper for other Arch based systems
 #feh --bg-fill /usr/share/archlinux-tweak-tool/data/wallpaper/wallpaper.png &
 #run applications from startup
@@ -42,7 +45,9 @@ xautolock -time 10 -locker slock &
 #         virsh --connect qemu:///system start $vm_name
 #     ) &
 # fi
+run 'virsh --connect qemu:///system start win11-base' &
 
+~/dotfiles/arco-chadwm/scripts/launch_vm.sh &
 pkill bar.sh
 ~/dotfiles/arco-chadwm/scripts/bar.sh &
 while type chadwm >/dev/null; do chadwm && continue || break; done
