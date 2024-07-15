@@ -33,10 +33,11 @@ packagesPacman=(
     "mintstick"
     "zoxide"
     "python-pip"
+    "p7zip"
 );
 
 packagesYay=(
-    "genymotion"
+    #"genymotion"
     "lazydocker"
     "thorium-browser-bin"
 );
