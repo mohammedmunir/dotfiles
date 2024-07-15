@@ -28,7 +28,7 @@ alias Qtile='startx'
 alias QtileWayland='qtile start -b wayland'
 alias xfce='exec startxfce4'
 alias chadwm='startx ~/dotfiles/arco-chadwm/scripts/run.sh'
-alias xdwm='startx ~/.suckless/dwm/scripts/run.sh'
+alias flexidwm='startx ~/dotfiles/flexi/autostart.sh'
 
 # -----------------------------------------------------
 # GIT

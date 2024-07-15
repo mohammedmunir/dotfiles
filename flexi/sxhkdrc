@@ -1,0 +1,127 @@
+#!/bin/bash
+
+# Define arrays of packages
+packagesPacman=(
+    "neovim" 
+    "mpv" 
+    "freerdp" 
+    "figlet" 
+    "vlc" 
+    "brightnessctl"
+    "qbittorrent"
+    "torbrowser-launcher"
+    "fastfetch"
+    "geany"
+    "ripgrep"
+    "meld"
+    "gvfs"
+    "xautolock"
+    "slock"
+    "thunar-volman"
+    "mtpfs"
+    "gvfs-mtp"
+    "android-file-transfer"
+    "visual-studio-code-bin"
+    "unzip"
+    "scrot"
+    "flameshot"
+    "arcolinux-root-git"
+    "arcolinux-fastfetch-git"
+    "weston"
+    "wttr"
+    "ollama"
+    "yt-dlp"
+    "mintstick"
+    "zoxide"
+    "python-pip"
+    "p7zip"
+    # "package-to-disable"
+);
+
+packagesYay=(
+    "genymotion"
+    "lazydocker"
+    "thorium-browser-bin"
+    # "package-to-disable"
+);
+
+packagesToRemove=(
+    "sublime-text-4" 
+    # "package-to-disable"
+);
+
+# Function to check if a package is installed using pacman
+_isPackageInstalledPacman() {
+    for pkg in "${@}"; do
+        pacman -Q "$pkg" >/dev/null 2>&1 && echo "$pkg is already installed. Skipping." && return 0
+    done
+    return 1
+}
+
+# Function to check if a package is installed using yay
+_isPackageInstalledYay() {
+    for pkg in "${@}"; do
+        yay -Q "$pkg" >/dev/null 2>&1 && echo "$pkg is already installed. Skipping." && return 0
+    done
+    return 1
+}
+
+# Function to install packages using pacman
+_installPackagesPacman() {
+    echo "Installing pacman packages..."
+    for pkg in "${@}"; do
+        _isPackageInstalledPacman "$pkg" || sudo pacman -S --noconfirm "$pkg"
+    done
+}
+
+# Function to install packages using yay
+_installPackagesYay() {
+    echo "Installing AUR packages..."
+    for pkg in "${@}"; do
+        _isPackageInstalledYay "$pkg" || yay -S --noconfirm "$pkg"
+    done
+}
+
+# Function to remove packages using pacman
+_removePackagesPacman() {
+    echo "Removing pacman packages..."
+    for pkg in "${@}"; do
+        sudo pacman -Rs --noconfirm "$pkg"
+    done
+}
+
+# Colors for the echo statements
+GREEN='\033[0;32m'
+NONE='\033[0m'
+
+# ------------------------------------------------------
+# Main script execution
+# ------------------------------------------------------
+
+# Print fancy header
+echo -e "${GREEN}"
+cat <<"EOF"
+ ___           _        _ _                    _                         
+|_ _|_ __  ___| |_ __ _| | |  _ __   __ _  ___| | ____ _  __ _  ___  ___ 
+ | || '_ \/ __| __/ _` | | | | '_ \ / _` |/ __| |/ / _` |/ _` |/ _ \/ __|
+ | || | | \__ \ || (_| | | | | |_) | (_| | (__|   < (_| | (_| |  __/\__ \
+|___|_| |_|___/\__\__,_|_|_| | .__/ \__,_|\___|_|\_\__,_|\__, |\___||___/
+                             |_|                         |___/           
+
+EOF
+echo -e "${NONE}"
+
+# Install packages using pacman
+_installPackagesPacman "${packagesPacman[@]}"
+
+# Install packages using yay
+_installPackagesYay "${packagesYay[@]}"
+
+# Remove packages using pacman
+_removePackagesPacman "${packagesToRemove[@]}"
+
+# Set default wttr location
+echo "Setting default wttr location..."
+wttr -sdef "Glasgow,uk"
+
+echo "Script execution complete."
