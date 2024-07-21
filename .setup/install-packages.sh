@@ -34,7 +34,8 @@ packagesPacman=(
     "zoxide"
     "python-pip"
     "p7zip"
-);
+    "gvfs-dnssd" 
+    );
 
 packagesYay=(
     #"genymotion"
