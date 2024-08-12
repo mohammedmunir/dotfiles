@@ -20,5 +20,20 @@ fi
 # Pull desired models from the registry
 ollama pull qwen2
 ollama pull qwen2:1.5b
+#ollama run stable-code
+#ollama run mistral-nemo
 
 echo "Model pull completed."
+
+echo "lets install proplexity"
+echo "installing nomic-embed-text"
+ollama pull nomic-embed-text
+
+#https://github.com/ItzCrazyKns/Perplexica
+
+
+cd /home/abu/Documents/repo/
+git clone https://github.com/ItzCrazyKns/Perplexica.git
+
+echo "Perplexica cloned successfully."
+cd Perplexica

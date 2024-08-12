@@ -26,7 +26,7 @@ pkill bar.sh
 #run xrandr --output HDMI2 --right-of HDMI1 --auto
 #autorandr horizontal
 
-#run "nm-applet"
+run "nm-applet"
 #run "pamac-tray"
 run "variety"
 run "xfce4-power-manager"
