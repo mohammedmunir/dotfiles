@@ -1,0 +1,321 @@
+# -----------------------------------------------------
+# ~/.bashrc
+# -----------------------------------------------------
+
+# ASCII Art Header
+#   | |__   __ _ ___| |__  _ __ ___ 
+#   | '_ \ / _` / __| '_ \| '__/ __|
+#  _| |_) | (_| \__ \ | | | | | (__ 
+# (_)_.__/ \__,_|___/_| |_|_|  \___|
+# -----------------------------------------------------
+
+# -----------------------------------------------------
+# ALIASES
+# -----------------------------------------------------
+
+# General Aliases
+alias sf='sudo setfont ter-128b'
+alias c='clear'
+alias shutdown='sudo shutdown -P now'
+alias reboot='sudo shutdown -r now'
+alias v='nvim'
+alias shot='scrot -d 3 -c -z -u'
+alias shotsel='scrot -s'
+alias wifi='nmtui'
+alias dot="cd ~/dotfiles"
+alias yt="youtube-dl -ci"  # General YouTube download
+alias ytp="youtube-dl -tAci"  # YouTube playlist download
+alias ytm="youtube-dl -cif 251"  # YouTube music only
+alias wdownload='sudo mount --bind ~/Downloads ~/.local/share/waydroid/data/media/0/Download'
+
+# Window Managers
+alias Qtile='startx'
+alias QtileWayland='qtile start -b wayland'
+alias xfce='exec startxfce4'
+alias chadwm='startx ~/dotfiles/arco-chadwm/scripts/run.sh'
+alias flexidwm='startx ~/dotfiles/flexi/autostart.sh'
+
+# Git Aliases
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit -m"
+alias gp="git push"
+alias gpl="git pull"
+alias gst="git stash"
+alias gsp="git stash; git pull"
+alias gcheck="git checkout"
+alias gcom="git add . && git commit -m \"$1\""
+alias lazyg="git add . && git commit -m \"$1\" && git push"
+
+# Custom Scripts
+alias gr='python ~/dotfiles/scripts/growthrate.py'
+alias ChatGPT='python ~/mychatgpt/mychatgpt.py'
+alias chat='python ~/mychatgpt/mychatgpt.py'
+alias ascii='~/dotfiles/scripts/figlet.sh'
+
+# Virtual Machine Management
+alias vm='~/private/launchvm.sh'
+alias lg='~/dotfiles/scripts/looking-glass.sh'
+alias vmstart='virsh --connect qemu:///system start win11'
+alias vmstop='virsh --connect qemu:///system destroy win11'
+alias vmstatus='virsh --connect qemu:///system list --all'
+
+# Config Files Editing
+alias confq='nvim ~/dotfiles/qtile/config.py'
+alias confb='nvim ~/dotfiles/.bashrc-personal'
+alias confp='nvim ~/dotfiles/.setup/install-packages.sh'
+
+# Config Files Viewing
+alias catb='cat ~/dotfiles/.bashrc-personal'
+
+# Notes
+alias notes='vim ~/notes.txt'
+
+# System Management
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias setkb='setxkbmap gb && echo "Keyboard set back to gb."'
+
+# Reload Qtile
+alias ql="qtile cmd-obj -o cmd -f reload_config"
+
+# Pacman Unlock
+alias unlock="sudo rm /var/lib/pacman/db.lck"
+alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
+
+# Docker Management
+alias dps='docker ps -a'
+alias dimages='docker images'
+alias dlogs='docker logs'
+alias dexec='docker exec -it'
+alias drm='docker rm'
+alias drmi='docker rmi'
+alias dstopall='docker stop $(docker ps -a -q)'
+alias drmall='docker rm $(docker ps -a -q)'
+alias dprune='docker system prune -a'
+alias dcup='docker-compose up -d'
+alias ds='docker start'
+
+# SSH Management
+alias sshs='sudo service sshd start'
+alias sshstatus='sudo service sshd status'
+
+# File System Navigation
+alias cd..="cd .."
+alias hs="cd ~/ && ls"
+alias up="cd .."
+alias home="cd ~/"
+alias root="sudo su"
+alias mkdir="mkdir -pv"  # Creates parent directories if needed
+alias hist="history"
+alias jobs="jobs -l"
+alias path="echo -e ${PATH//:/\\n}"
+
+# Grep shorthands
+alias grep="grep --color=auto"  # Colorize grep command output
+
+# ls shorthands
+alias l.="ls -d .* --color=auto"
+alias ls="ls -C --color=auto"  # Make 'normal' ls nice with Columns and Colors
+alias lm="ls -lhA --color=auto | more"  # For big directories
+alias ll="ls -lh --color=auto"
+alias la="ls -lhA --color=auto"
+alias lar="ls -lhAR --color=auto | more"  # Recursive subdirectories, listed out
+alias lcr="ls -CAR --color=auto | more"  # Recursive subdirectories, by column
+
+# Time
+alias now="date +\"%T\""
+alias nowtime=now
+alias nowdate="date +\"%d-%m-%Y\""
+
+# Networking
+alias ports="netstat -tulanp"
+alias whatismyip="whatsmyip"
+
+# Miscellaneous Tools
+alias df='df -h'  # Disk space usage
+alias lock='xscreensaver-command -lock'
+alias matrix='cat /dev/urandom'
+alias removesvn='rm -rf `find . -type d -name .svn`'
+alias syslog='sudo cat /var/log/messages'
+alias beets='beet import ~/Music'
+
+# Font Management
+alias update-fc='sudo fc-cache -fv'
+
+# PYWAL
+# Uncomment the next line if you want to apply your PYWAL colors on each terminal launch
+# cat ~/.cache/wal/sequences
+
+# Enable bash programmable completion features in interactive shells
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+	. /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
+fi
+
+# Expand the history size
+export HISTFILESIZE=10000
+export HISTSIZE=500
+export PATH="/usr/lib/ccache/bin/:$PATH"
+
+# Zoxide Initialization
+eval "$(zoxide init bash)"
+
+# Starship Prompt
+eval "$(starship init bash)"
+
+# Ignore case in command completion
+bind "set completion-ignore-case on"
+
+# Custom Bindings
+bind '"\C-f":"zi\n"'
+
+# -----------------------------------------------------
+# FUNCTIONS
+# -----------------------------------------------------
+
+# Unmute and max volume for Master
+unmute-all() {
+	amixer sset Master unmute
+	amixer sset Master 100%
+}
+
+# Copy file with a progress bar
+cpp() {
+	set -e
+	strace -q -ewrite cp -- "${1}" "${2}" 2>&1 | awk '{
+		count += $NF
+		if (count % 10 == 0) {
+			percent = count / total_size * 100
+			printf "%3d%% [", percent
+			for (i=0;i<=percent;i++)
+				printf "="
+				printf ">"
+				for (i=percent;i<100;i++)
+					printf " "
+					printf "]\r"
+			}
+		}
+	END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+}
+
+# Show current network information
+netinfo () {
+	echo "--------------- Network Information ---------------"
+	/sbin/ifconfig | awk /'inet addr/ {print $2}'
+	echo ""
+	/sbin/ifconfig | awk /'Bcast/ {print $3}'
+	echo ""
+	/sbin/ifconfig | awk /'inet addr/ {print $4}'
+	/sbin/ifconfig | awk /'HWaddr/ {print $4,$5}'
+	echo "---------------------------------------------------"
+}
+
+# IP address lookup (internal and external)
+whatsmyip () {
+	if [ -e /sbin/ip ]; then
+		echo -n "Internal IP: " 
+		/sbin/ip addr show wlan0 | grep "inet " | awk '{print $2}'
+	else
+		echo -n "Internal IP: "
+		/sbin/ifconfig wlan0 | grep "inet " | awk '{print $2}'
+	fi
+	echo -n "External IP: " 
+	curl -s ifconfig.me
+}
+
+# Git reset to origin/main
+function git_reset_hard_main() {
+	git fetch origin
+	git reset --hard origin/main
+}
+
+# Extract various archive formats
+ex () {
+  if [ -f "$1" ]; then
+    case $1 in
+      *.tar.bz2)   tar xjf "$1"   ;;
+      *.tar.gz)    tar xzf "$1"   ;;
+      *.bz2)       bunzip2 "$1"   ;;
+      *.rar)       unrar x "$1"   ;;
+      *.gz)        gunzip "$1"    ;;
+      *.tar)       tar xf "$1"    ;;
+      *.tbz2)      tar xjf "$1"   ;;
+      *.tgz)       tar xzf "$1"   ;;
+      *.zip)       unzip "$1"     ;;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1"      ;;
+      *.deb)       ar x "$1"      ;;
+      *.tar.xz)    tar xf "$1"    ;;
+      *.tar.zst)   tar xf "$1"    ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+# -----------------------------------------------------
+# FUNCTION: Welcome Message
+# -----------------------------------------------------
+
+welcome_message() {
+    # Set colors
+    red='\033[0;31m'
+    green='\033[0;32m'
+    reset='\033[0m'
+
+    # Welcome banner
+    figlet -f slant "${red} Welcome"
+
+    echo "==============================================================="
+    
+    # Date and time
+    echo -ne "${green} Today \t\t\t: ${red}$(date)"
+    echo ""
+
+    # Kernel information
+    echo -e "${green} Kernel Information\t:${red} $(uname -smr)"
+    
+    # Current directory
+    echo -e "${green} Your Location\t\t:${red} $(pwd)"
+    
+    echo "==============================================================="
+
+    # Internal IP address
+    internal_ip=$(hostname -I | awk '{print $1}')
+    echo -e "${green} Internal IP\t\t:${red} $internal_ip"
+    
+    # External IP address
+    external_ip=$(curl -s ifconfig.me)
+    echo -e "${green} External IP\t\t:${red} $external_ip"
+    
+    echo "==============================================================="
+    
+    # List block devices
+    lsblk -o NAME,TYPE,GROUP,SIZE,VENDOR,MOUNTPOINT
+    
+    echo "==============================================================="
+    
+    # Network devices status
+    nmcli d
+    
+    echo "==============================================================="
+    
+    # List available Wi-Fi networks
+    nmcli device wifi list
+    
+    echo "====================== W E L L C O M E ========================"
+    
+    # Reset colors
+    echo -e "${reset}"
+}
+
+# Run the function upon terminal startup
+welcome_message
+
+
+# -----------------------------------------------------
+# END OF ~/.bashrc
+# -----------------------------------------------------
+

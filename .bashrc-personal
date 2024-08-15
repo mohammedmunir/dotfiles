@@ -263,17 +263,9 @@ alias dprune='docker system prune -a'
 alias dcup='docker-compose up -d'
 alias ds='docker start'
 
-alias penv='source ~/myenv/bin/activate'
-alias penv310='source .venv/bin/activate'
-
-alias aider='aider --model ollama/deepseek-coder-v2'
-
-
 function git_reset_hard_main() {
     git fetch origin
     git reset --hard origin/main
 }
 
-export HSA_OVERRIDE_GFX_VERSION=11.0.3
-alias aider-qwen2='source ~/aider_env/bin/activate && ~/aider_env/bin/aider --model ollama/qwen2'
-export LD_LIBRARY_PATH=/opt/WebullDesktop:$LD_LIBRARY_PATH
+
