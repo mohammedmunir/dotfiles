@@ -121,6 +121,7 @@ alias ll="ls -lh --color=auto"
 alias la="ls -lhA --color=auto"
 alias lar="ls -lhAR --color=auto | more"  # Recursive subdirectories, listed out
 alias lcr="ls -CAR --color=auto | more"  # Recursive subdirectories, by column
+alias lx='ls -la --color | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
 
 # Time
 alias now="date +\"%T\""
@@ -152,6 +153,9 @@ if [ -f /usr/share/bash-completion/bash_completion ]; then
 elif [ -f /etc/bash_completion ]; then
 	. /etc/bash_completion
 fi
+
+#start GUI
+alias gui="sudo systemctl isolate graphical.target"
 
 # Expand the history size
 export HISTFILESIZE=10000
@@ -291,7 +295,7 @@ welcome_message() {
     echo -e "${green} External IP\t\t:${red} $external_ip"
     
     echo "==============================================================="
-    
+
     # List block devices
     lsblk -o NAME,TYPE,GROUP,SIZE,VENDOR,MOUNTPOINT
     
@@ -304,6 +308,12 @@ welcome_message() {
     
     # List available Wi-Fi networks
     nmcli device wifi list
+
+    echo "==============================================================="
+    
+    # List connected Bluetooth devices
+    echo -e "${green} Bluetooth Devices\t:${reset}"
+    bluetoothctl devices Connected | awk -F ' ' '{print $3,$4,$5}'
     
     echo "====================== W E L L C O M E ========================"
     
@@ -313,7 +323,6 @@ welcome_message() {
 
 # Run the function upon terminal startup
 welcome_message
-
 
 # -----------------------------------------------------
 # END OF ~/.bashrc
