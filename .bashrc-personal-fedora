@@ -321,6 +321,8 @@ welcome_message() {
     echo -e "${reset}"
 }
 
+export OLLAMA_API_BASE="http://localhost:11434"
+
 # Run the function upon terminal startup
 welcome_message
 
