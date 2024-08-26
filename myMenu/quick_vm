@@ -1,11 +1,5 @@
+
 #!/bin/bash
-#  _                           _      __     ____  __  
-# | |    __ _ _   _ _ __   ___| |__   \ \   / /  \/  | 
-# | |   / _` | | | | '_ \ / __| '_ \   \ \ / /| |\/| | 
-# | |__| (_| | |_| | | | | (__| | | |   \ V / | |  | | 
-# |_____\__,_|\__,_|_| |_|\___|_| |_|    \_/  |_|  |_| 
-#                                                      
-# ----------------------------------------------------- 
 
 vm_name="win11-base"
 win11user="abu"
@@ -16,17 +10,23 @@ vm_status=$(virsh --connect qemu:///system domstate $vm_name)
 
 if [ "$vm_status" != "running" ]; then
     virsh --connect qemu:///system start $vm_name
-    notify-send "Virtual Machine $vm_name is starting... Waiting 200 seconds for booting up."
-    sleep 200
+    notify-send "Virtual Machine $vm_name is starting..." "Waiting for VM to boot."
+    
+    # Poll to check if the VM is responsive (replace sleep)
+    sleep_counter=0
+    while [ $sleep_counter -lt 200 ]; do
+        if [ "$(virsh --connect qemu:///system domstate $vm_name)" == "running" ]; then
+            break
+        fi
+        sleep 5
+        sleep_counter=$((sleep_counter + 5))
+    done
 else
     notify-send "Virtual Machine $vm_name is already running." "Launching xfreerdp now!"
-    notify-send "Starting xfreerdp now..."
 fi
 
-
-# Find the IP address of the VM
-mac_address=$(virsh --connect qemu:///system domiflist $vm_name | grep -oP '([0-9a-f]{2}:){5}[0-9a-f]{2}')
-ip_address=$(arp -an | grep "$mac_address" | awk '{print $2}' | tr -d '()')
+# Find the IP address of the VM using virsh
+ip_address=$(virsh --connect qemu:///system domifaddr $vm_name | grep -oP '(\d{1,3}\.){3}\d{1,3}')
 
 if [ -z "$ip_address" ]; then
     notify-send "Failed to obtain IP address for $vm_name."
@@ -34,4 +34,5 @@ if [ -z "$ip_address" ]; then
 fi
 
 # Launch xfreerdp with the obtained IP address
-xfreerdp3 /grab-keyboard /v:$ip_address /size:100% /cert:ignore /u:$win11user /p:$win11pass /d: /dynamic-resolution &
+notify-send "Starting xfreerdp now..." "Connecting to $ip_address"
+xfreerdp /grab-keyboard /v:$ip_address /size:100% /cert:ignore /u:$win11user /p:$win11pass /dynamic-resolution &

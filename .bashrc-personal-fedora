@@ -259,40 +259,75 @@ ex () {
   fi
 }
 
+vento (){
+cd /opt/ventoy && sudo bash ./VentoyWeb.sh
+}
+
 # -----------------------------------------------------
 # FUNCTION: Welcome Message
 # -----------------------------------------------------
 
 welcome_message() {
     # Set colors
-    red='\033[0;31m'
-    green='\033[0;32m'
-    reset='\033[0m'
+    red='\033[0;31m'     # Red for warnings or critical alerts
+    green='\033[0;32m'   # Green for standard information
+    yellow='\033[0;33m'  # Yellow for highlights or important details
+    reset='\033[0m'      # Reset color
 
-    # Welcome banner
-    figlet -f slant "${red} Welcome"
+    # Welcome banner (using green for a positive message)
+    figlet -f slant "${green} Welcome"
 
     echo "==============================================================="
     
     # Date and time
-    echo -ne "${green} Today \t\t\t: ${red}$(date)"
+    echo -ne "${yellow} Today \t\t\t: ${green}$(date)"
     echo ""
 
     # Kernel information
-    echo -e "${green} Kernel Information\t:${red} $(uname -smr)"
+    echo -e "${yellow} Kernel Information\t:${green} $(uname -smr)"
     
     # Current directory
-    echo -e "${green} Your Location\t\t:${red} $(pwd)"
+    echo -e "${yellow} Your Location\t\t:${green} $(pwd)"
     
     echo "==============================================================="
 
     # Internal IP address
     internal_ip=$(hostname -I | awk '{print $1}')
-    echo -e "${green} Internal IP\t\t:${red} $internal_ip"
+    echo -e "${yellow} Internal IP\t\t:${green} $internal_ip"
     
     # External IP address
     external_ip=$(curl -s ifconfig.me)
-    echo -e "${green} External IP\t\t:${red} $external_ip"
+    echo -e "${yellow} External IP\t\t:${green} $external_ip"
+    
+    echo "==============================================================="
+
+    # System Uptime
+    echo -e "${yellow} System Uptime\t\t:${green} $(uptime -p)"
+
+    # CPU Load
+    echo -e "${yellow} CPU Load\t\t:${green} $(uptime | awk -F'load average: ' '{ print $2 }')"
+
+    # Memory Usage
+    echo -e "${yellow} Memory Usage\t\t:${green} $(free -h | awk '/^Mem/ {print $3 "/" $2}')"
+
+    # Disk Usage
+    echo -e "${yellow} Disk Usage\t\t:${green} $(df -h / | awk '/\// {print $5 " (" $3 "/" $2 ")"}')"
+
+    echo "==============================================================="
+
+    # Check and display IP address for a specific network interface (e.g., enp1s0)
+    gateway_interface=$(ip -o link show | grep -E 'enp|eth|wlan' | awk -F': ' '{print $2}' | head -n 1)
+    
+    if [ -n "$gateway_interface" ]; then
+        gateway_ip=$(ip -o -4 addr list "$gateway_interface" | awk '{print $4}' | cut -d/ -f1)
+        if [ -n "$gateway_ip" ]; then
+            echo -e "${yellow} Gateway Interface (${gateway_interface}) IP:${green} $gateway_ip"
+        else
+            echo -e "${red} Warning: No IP assigned to gateway interface ${gateway_interface}.${reset}"
+        fi
+    else
+        echo -e "${red} Warning: No network interface matching enp or eth found.${reset}"
+    fi
     
     echo "==============================================================="
 
@@ -312,7 +347,7 @@ welcome_message() {
     echo "==============================================================="
     
     # List connected Bluetooth devices
-    echo -e "${green} Bluetooth Devices\t:${reset}"
+    echo -e "${yellow} Bluetooth Devices\t:${green}"
     bluetoothctl devices Connected | awk -F ' ' '{print $3,$4,$5}'
     
     echo "====================== W E L L C O M E ========================"
@@ -320,6 +355,7 @@ welcome_message() {
     # Reset colors
     echo -e "${reset}"
 }
+
 
 export OLLAMA_API_BASE="http://localhost:11434"
 

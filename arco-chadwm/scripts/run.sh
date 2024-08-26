@@ -15,7 +15,8 @@ run "xfce4-power-manager"
 run "blueberry-tray"
 run "/usr/lib/xfce4/notifyd/xfce4-notifyd"
 run "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-
+#for fedoa
+run "/usr/libexec/polkit-gnome-authentication-agent-1"
 
 picom &
 run "numlockx on"

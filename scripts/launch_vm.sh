@@ -38,4 +38,4 @@ if [ -z "$ip_address" ]; then
 fi
 
 # Launch xfreerdp with the obtained IP address
-xfreerdp3 /grab-keyboard /v:$ip_address /size:100% /cert:ignore /u:$win11user /p:$win11pass /d: /dynamic-resolution &
+xfreerdp /grab-keyboard /v:$ip_address /size:100% /cert:ignore /u:$win11user /p:$win11pass /d: /dynamic-resolution &

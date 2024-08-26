@@ -2,6 +2,4 @@
 #  
 # ----------------------------------------------------- 
 
-~/dotfiles/scripts/cs_gateway.sh
-sleep 30
 ~/dotfiles/scripts/launch_vm.sh

@@ -72,7 +72,7 @@ super + x
 
 #powermenu
 super + shift + x
-    arcolinux-powermenu
+    echo -n "I'm on Fedora Linux" | xdotool type --clearmodifiers --
 
 #Rofi theme selector
 super + r
