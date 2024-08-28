@@ -178,6 +178,7 @@ mkdir -p $HOME/SHARED
 # Start and enable libvirtd service
 sudo systemctl start libvirtd
 sudo systemctl enable libvirtd
+
 sudo systemctl enable --now polkit.service
 
 sudo usermod -aG libvirt $(whoami)

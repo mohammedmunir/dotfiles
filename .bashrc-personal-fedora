@@ -62,11 +62,11 @@ alias vmstatus='virsh --connect qemu:///system list --all'
 
 # Config Files Editing
 alias confq='nvim ~/dotfiles/qtile/config.py'
-alias confb='nvim ~/dotfiles/.bashrc-personal'
+alias confb='nvim ~/dotfiles/.bashrc-personal-fedora'
 alias confp='nvim ~/dotfiles/.setup/install-packages.sh'
 
-# Config Files Viewing
-alias catb='cat ~/dotfiles/.bashrc-personal'
+# Config Filas Viewing
+alias catb='cat ~/dotfiles/.bashrc-personal-fedora'
 
 # Notes
 alias notes='vim ~/notes.txt'
@@ -142,10 +142,7 @@ alias beets='beet import ~/Music'
 
 # Font Management
 alias update-fc='sudo fc-cache -fv'
-
-# PYWAL
-# Uncomment the next line if you want to apply your PYWAL colors on each terminal launch
-# cat ~/.cache/wal/sequences
+alias update='sudo dnf check-update && sudo dnf upgrade -y'
 
 # Enable bash programmable completion features in interactive shells
 if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -274,7 +271,7 @@ welcome_message() {
     yellow='\033[0;33m'  # Yellow for highlights or important details
     reset='\033[0m'      # Reset color
 
-    # Welcome banner (using green for a positive message)
+    # Welcome banner
     figlet -f slant "${green} Welcome"
 
     echo "==============================================================="
