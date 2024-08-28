@@ -35,6 +35,32 @@ alias xfce='exec startxfce4'
 alias chadwm='startx ~/dotfiles/arco-chadwm/scripts/run.sh'
 alias flexidwm='startx ~/dotfiles/flexi/autostart.sh'
 
+# System Management
+alias update='sudo dnf check-update && sudo dnf upgrade -y'
+alias dnfc='sudo dnf clean all'  # Clean DNF cache
+alias dnfp='sudo dnf autoremove -y'  # Remove unused packages
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias setkb='setxkbmap gb && echo "Keyboard set back to gb."'
+alias unlock="sudo rm /var/lib/pacman/db.lck"  # Pacman unlock
+alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
+
+# Docker Management
+alias dps='docker ps -a'
+alias dimages='docker images'
+alias dlogs='docker logs'
+alias dexec='docker exec -it'
+alias drm='docker rm'
+alias drmi='docker rmi'
+alias dstopall='docker stop $(docker ps -a -q)'
+alias drmall='docker rm $(docker ps -a -q)'
+alias dprune='docker system prune -a'
+alias dcup='docker-compose up -d'
+alias ds='docker start'
+
+# SSH Management
+alias sshs='sudo service sshd start'
+alias sshstatus='sudo service sshd status'
+
 # Git Aliases
 alias gs="git status"
 alias ga="git add"
@@ -65,39 +91,11 @@ alias confq='nvim ~/dotfiles/qtile/config.py'
 alias confb='nvim ~/dotfiles/.bashrc-personal-fedora'
 alias confp='nvim ~/dotfiles/.setup/install-packages.sh'
 
-# Config Filas Viewing
+# Config Files Viewing
 alias catb='cat ~/dotfiles/.bashrc-personal-fedora'
 
 # Notes
 alias notes='vim ~/notes.txt'
-
-# System Management
-alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-alias setkb='setxkbmap gb && echo "Keyboard set back to gb."'
-
-# Reload Qtile
-alias ql="qtile cmd-obj -o cmd -f reload_config"
-
-# Pacman Unlock
-alias unlock="sudo rm /var/lib/pacman/db.lck"
-alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
-
-# Docker Management
-alias dps='docker ps -a'
-alias dimages='docker images'
-alias dlogs='docker logs'
-alias dexec='docker exec -it'
-alias drm='docker rm'
-alias drmi='docker rmi'
-alias dstopall='docker stop $(docker ps -a -q)'
-alias drmall='docker rm $(docker ps -a -q)'
-alias dprune='docker system prune -a'
-alias dcup='docker-compose up -d'
-alias ds='docker start'
-
-# SSH Management
-alias sshs='sudo service sshd start'
-alias sshstatus='sudo service sshd status'
 
 # File System Navigation
 alias cd..="cd .."
@@ -110,10 +108,10 @@ alias hist="history"
 alias jobs="jobs -l"
 alias path="echo -e ${PATH//:/\\n}"
 
-# Grep shorthands
+# Grep Shorthands
 alias grep="grep --color=auto"  # Colorize grep command output
 
-# ls shorthands
+# ls Shorthands
 alias l.="ls -d .* --color=auto"
 alias ls="ls -C --color=auto"  # Make 'normal' ls nice with Columns and Colors
 alias lm="ls -lhA --color=auto | more"  # For big directories
@@ -142,7 +140,6 @@ alias beets='beet import ~/Music'
 
 # Font Management
 alias update-fc='sudo fc-cache -fv'
-alias update='sudo dnf check-update && sudo dnf upgrade -y'
 
 # Enable bash programmable completion features in interactive shells
 if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -151,7 +148,7 @@ elif [ -f /etc/bash_completion ]; then
 	. /etc/bash_completion
 fi
 
-#start GUI
+# Start GUI
 alias gui="sudo systemctl isolate graphical.target"
 
 # Expand the history size
@@ -226,7 +223,7 @@ whatsmyip () {
 }
 
 # Git reset to origin/main
-function git_reset_hard_main() {
+git_reset_hard_main() {
 	git fetch origin
 	git reset --hard origin/main
 }
@@ -246,15 +243,16 @@ ex () {
       *.zip)       unzip "$1"     ;;
       *.Z)         uncompress "$1";;
       *.7z)        7z x "$1"      ;;
-      *.deb)       ar x "$1"      ;;
-      *.tar.xz)    tar xf "$1"    ;;
-      *.tar.zst)   tar xf "$1"    ;;
+      *.xz)        unxz "$1"      ;;
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
-    echo "'$1' is not a valid file"
+    echo "'$1' is not a valid file!"
   fi
 }
+
+# -----------------------------------------------------
+
 
 vento (){
 cd /opt/ventoy && sudo bash ./VentoyWeb.sh
