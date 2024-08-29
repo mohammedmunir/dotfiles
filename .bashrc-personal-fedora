@@ -141,6 +141,9 @@ alias beets='beet import ~/Music'
 # Font Management
 alias update-fc='sudo fc-cache -fv'
 
+# Speed test
+alias speedtest='speedtest-cli'
+
 # Enable bash programmable completion features in interactive shells
 if [ -f /usr/share/bash-completion/bash_completion ]; then
 	. /usr/share/bash-completion/bash_completion
@@ -168,9 +171,37 @@ bind "set completion-ignore-case on"
 # Custom Bindings
 bind '"\C-f":"zi\n"'
 
+# Alias to set the IP address on the network interface
+alias set_ip='
+interface_name=$(find_interface)
+echo "Setting IP on interface: $interface_name"
+sudo ip addr add 10.0.1.200/24 dev "$interface_name"
+'
+
+# Alias to remove the IP address from the network interface
+alias reset_ip='
+interface_name=$(find_interface)
+echo "Removing IP from interface: $interface_name"
+sudo ip addr del 10.0.1.200/24 dev "$interface_name"
+'
+
 # -----------------------------------------------------
 # FUNCTIONS
 # -----------------------------------------------------
+
+# Function to find the active interface or use the default
+find_interface() {
+    local default_interface="enp1s0"
+    local interface_name=$(ip -4 addr show | grep "state UP" | head -n 1 | awk '{print $2}' | sed 's/[0-9]*//' | cut -d':' -f1)
+    
+    if [[ -z "$interface_name" ]]; then
+        echo "No active Ethernet interfaces found. Using default interface '$default_interface'."
+        interface_name="$default_interface"
+    fi
+    
+    echo "$interface_name"
+}
+
 
 # Unmute and max volume for Master
 unmute-all() {
