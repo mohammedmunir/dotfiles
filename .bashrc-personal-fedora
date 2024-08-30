@@ -171,29 +171,14 @@ bind "set completion-ignore-case on"
 # Custom Bindings
 bind '"\C-f":"zi\n"'
 
-# Alias to set the IP address on the network interface
-alias set_ip='
-interface_name=$(find_interface)
-echo "Setting IP on interface: $interface_name"
-sudo ip addr add 10.0.1.200/24 dev "$interface_name"
-'
+alias list_devices='sudo arp-scan --localnet'
 
-# Alias to remove the IP address from the network interface
-alias reset_ip='
-interface_name=$(find_interface)
-echo "Removing IP from interface: $interface_name"
-sudo ip addr del 10.0.1.200/24 dev "$interface_name"
-'
 
-# -----------------------------------------------------
-# FUNCTIONS
-# -----------------------------------------------------
-
-# Function to find the active interface or use the default
+# Function to find the active Ethernet interface or use the default
 find_interface() {
     local default_interface="enp1s0"
-    local interface_name=$(ip -4 addr show | grep "state UP" | head -n 1 | awk '{print $2}' | sed 's/[0-9]*//' | cut -d':' -f1)
-    
+    local interface_name=$(ip -4 addr show up | grep -E '^[0-9]+: ' | grep -v 'docker0' | head -n 1 | awk '{print $2}' | sed 's/://')
+
     if [[ -z "$interface_name" ]]; then
         echo "No active Ethernet interfaces found. Using default interface '$default_interface'."
         interface_name="$default_interface"
@@ -201,6 +186,35 @@ find_interface() {
     
     echo "$interface_name"
 }
+
+# Alias to set the IP address on the network interface
+alias set_ip='
+interface_name=$(find_interface)
+current_ip=$(ip -4 addr show "$interface_name" | grep "inet 10.0.1.200")
+if [[ -z "$current_ip" ]]; then
+    echo "Setting IP 10.0.1.200/24 on interface: $interface_name"
+    sudo ip addr add 10.0.1.200/24 dev "$interface_name"
+else
+    echo "IP 10.0.1.200/24 is already set on interface: $interface_name"
+fi
+'
+
+# Alias to remove the IP address from the network interface
+alias reset_ip='
+interface_name=$(find_interface)
+current_ip=$(ip -4 addr show "$interface_name" | grep "inet 10.0.1.200")
+if [[ -n "$current_ip" ]]; then
+    echo "Removing IP 10.0.1.200/24 from interface: $interface_name"
+    sudo ip addr del 10.0.1.200/24 dev "$interface_name"
+else
+    echo "IP 10.0.1.200/24 is not set on interface: $interface_name"
+fi
+'
+
+# -----------------------------------------------------
+# FUNCTIONS
+# -----------------------------------------------------
+
 
 
 # Unmute and max volume for Master

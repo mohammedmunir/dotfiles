@@ -80,6 +80,7 @@ packages=(
     powerline-fonts
     xautolock
     slock
+    arp-scan
 )
 
 # Install packages if not already installed
