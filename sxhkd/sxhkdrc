@@ -68,7 +68,7 @@ super + c
 
 #archlinux-logout
 super + x
-    archlinux-logout
+    ~/.config/powermenu/powermenu.sh
 
 #powermenu
 super + shift + x

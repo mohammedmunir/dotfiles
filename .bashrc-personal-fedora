@@ -171,7 +171,14 @@ bind "set completion-ignore-case on"
 # Custom Bindings
 bind '"\C-f":"zi\n"'
 
-alias list_devices='sudo arp-scan --localnet'
+#alias list_devices='list_all_devices'
+
+list_all_devices() {
+    echo "Scanning local network..."
+    sudo arp-scan --localnet
+    echo -e "\nScanning network 10.0.1.0/24..."
+    sudo arp-scan --interface=enp1s0 10.0.1.0/24
+}
 
 
 # Function to find the active Ethernet interface or use the default

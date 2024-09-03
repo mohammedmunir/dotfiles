@@ -184,5 +184,8 @@ sudo systemctl enable --now polkit.service
 
 sudo usermod -aG libvirt $(whoami)
 
+#make thorium browser default
+xdg-settings get default-web-browser
+
 
 
