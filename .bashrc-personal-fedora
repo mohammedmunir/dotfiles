@@ -10,23 +10,57 @@
 # -----------------------------------------------------
 
 # -----------------------------------------------------
+# ENVIRONMENT VARIABLES
+# -----------------------------------------------------
+export HISTFILESIZE=10000
+export HISTSIZE=500
+export PATH="/usr/lib/ccache/bin/:$PATH"
+export OLLAMA_API_BASE="http://localhost:11434"
+
+# -----------------------------------------------------
+# SHELL OPTIONS
+# -----------------------------------------------------
+bind "set completion-ignore-case on"
+bind '"\C-f":"zi\n"'
+
+# -----------------------------------------------------
 # ALIASES
 # -----------------------------------------------------
 
-# General Aliases
+# System Management
 alias sf='sudo setfont ter-128b'
 alias c='clear'
 alias shutdown='sudo shutdown -P now'
 alias reboot='sudo shutdown -r now'
+alias update='sudo dnf check-update && sudo dnf upgrade -y'
+alias dnfc='sudo dnf clean all'
+alias dnfp='sudo dnf autoremove -y'
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias setkb='setxkbmap gb && echo "Keyboard set back to gb."'
+alias unlock="sudo rm /var/lib/pacman/db.lck"
+alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
+alias gui="sudo systemctl isolate graphical.target"
+
+# File and Directory Management
 alias v='nvim'
 alias shot='scrot -d 3 -c -z -u'
 alias shotsel='scrot -s'
-alias wifi='nmtui'
 alias dot="cd ~/dotfiles"
-alias yt="youtube-dl -ci"  # General YouTube download
-alias ytp="youtube-dl -tAci"  # YouTube playlist download
-alias ytm="youtube-dl -cif 251"  # YouTube music only
 alias wdownload='sudo mount --bind ~/Downloads ~/.local/share/waydroid/data/media/0/Download'
+alias cd..="cd .."
+alias hs="cd ~/ && ls"
+alias up="cd .."
+alias home="cd ~/"
+alias root="sudo su"
+alias mkdir="mkdir -pv"
+alias hist="history"
+alias jobs="jobs -l"
+alias path="echo -e ${PATH//:/\\n}"
+
+# Network Management
+alias wifi='nmtui'
+alias ports="netstat -tulanp"
+alias whatismyip="whatsmyip"
 
 # Window Managers
 alias Qtile='startx'
@@ -34,15 +68,6 @@ alias QtileWayland='qtile start -b wayland'
 alias xfce='exec startxfce4'
 alias chadwm='startx ~/dotfiles/arco-chadwm/scripts/run.sh'
 alias flexidwm='startx ~/dotfiles/flexi/autostart.sh'
-
-# System Management
-alias update='sudo dnf check-update && sudo dnf upgrade -y'
-alias dnfc='sudo dnf clean all'  # Clean DNF cache
-alias dnfp='sudo dnf autoremove -y'  # Remove unused packages
-alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-alias setkb='setxkbmap gb && echo "Keyboard set back to gb."'
-alias unlock="sudo rm /var/lib/pacman/db.lck"  # Pacman unlock
-alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
 
 # Docker Management
 alias dps='docker ps -a'
@@ -61,7 +86,7 @@ alias ds='docker start'
 alias sshs='sudo service sshd start'
 alias sshstatus='sudo service sshd status'
 
-# Git Aliases
+# Git Management
 alias gs="git status"
 alias ga="git add"
 alias gc="git commit -m"
@@ -73,12 +98,6 @@ alias gcheck="git checkout"
 alias gcom="git add . && git commit -m \"$1\""
 alias lazyg="git add . && git commit -m \"$1\" && git push"
 
-# Custom Scripts
-alias gr='python ~/dotfiles/scripts/growthrate.py'
-alias ChatGPT='python ~/mychatgpt/mychatgpt.py'
-alias chat='python ~/mychatgpt/mychatgpt.py'
-alias ascii='~/dotfiles/scripts/figlet.sh'
-
 # Virtual Machine Management
 alias vm='~/private/launchvm.sh'
 alias lg='~/dotfiles/scripts/looking-glass.sh'
@@ -86,102 +105,54 @@ alias vmstart='virsh --connect qemu:///system start win11'
 alias vmstop='virsh --connect qemu:///system destroy win11'
 alias vmstatus='virsh --connect qemu:///system list --all'
 
-# Config Files Editing
+# Config Files Management
 alias confq='nvim ~/dotfiles/qtile/config.py'
 alias confb='nvim ~/dotfiles/.bashrc-personal-fedora'
 alias confp='nvim ~/dotfiles/.setup/install-packages.sh'
-
-# Config Files Viewing
 alias catb='cat ~/dotfiles/.bashrc-personal-fedora'
-
-# Notes
 alias notes='vim ~/notes.txt'
 
-# File System Navigation
-alias cd..="cd .."
-alias hs="cd ~/ && ls"
-alias up="cd .."
-alias home="cd ~/"
-alias root="sudo su"
-alias mkdir="mkdir -pv"  # Creates parent directories if needed
-alias hist="history"
-alias jobs="jobs -l"
-alias path="echo -e ${PATH//:/\\n}"
-
-# Grep Shorthands
-alias grep="grep --color=auto"  # Colorize grep command output
-
-# ls Shorthands
+# Grep and ls Aliases
+alias grep="grep --color=auto"
 alias l.="ls -d .* --color=auto"
-alias ls="ls -C --color=auto"  # Make 'normal' ls nice with Columns and Colors
-alias lm="ls -lhA --color=auto | more"  # For big directories
+alias ls="ls -C --color=auto"
+alias lm="ls -lhA --color=auto | more"
 alias ll="ls -lh --color=auto"
 alias la="ls -lhA --color=auto"
-alias lar="ls -lhAR --color=auto | more"  # Recursive subdirectories, listed out
-alias lcr="ls -CAR --color=auto | more"  # Recursive subdirectories, by column
+alias lar="ls -lhAR --color=auto | more"
+alias lcr="ls -CAR --color=auto | more"
 alias lx='ls -la --color | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
 
-# Time
+# Time Related Aliases
 alias now="date +\"%T\""
 alias nowtime=now
 alias nowdate="date +\"%d-%m-%Y\""
 
-# Networking
-alias ports="netstat -tulanp"
-alias whatismyip="whatsmyip"
-
-# Miscellaneous Tools
-alias df='df -h'  # Disk space usage
+# Miscellaneous Aliases
+alias df='df -h'
 alias lock='xscreensaver-command -lock'
 alias matrix='cat /dev/urandom'
 alias removesvn='rm -rf `find . -type d -name .svn`'
 alias syslog='sudo cat /var/log/messages'
 alias beets='beet import ~/Music'
-
-# Font Management
 alias update-fc='sudo fc-cache -fv'
-
-# Speed test
 alias speedtest='speedtest-cli'
+alias fix-thorium='rm -f /home/abu/.config/thorium/lockfile /home/abu/.config/thorium/SingletonLock /home/abu/.config/thorium/SingletonSocket /home/abu/.config/thorium/SingletonCookie'
+alias yt="youtube-dl -ci"
+alias ytp="youtube-dl -tAci"
+alias ytm="youtube-dl -cif 251"
 
-# Enable bash programmable completion features in interactive shells
-if [ -f /usr/share/bash-completion/bash_completion ]; then
-	. /usr/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]; then
-	. /etc/bash_completion
-fi
+# Custom Scripts
+alias gr='python ~/dotfiles/scripts/growthrate.py'
+alias ChatGPT='python ~/mychatgpt/mychatgpt.py'
+alias chat='python ~/mychatgpt/mychatgpt.py'
+alias ascii='~/dotfiles/scripts/figlet.sh'
 
-# Start GUI
-alias gui="sudo systemctl isolate graphical.target"
+# -----------------------------------------------------
+# FUNCTIONS
+# -----------------------------------------------------
 
-# Expand the history size
-export HISTFILESIZE=10000
-export HISTSIZE=500
-export PATH="/usr/lib/ccache/bin/:$PATH"
-
-# Zoxide Initialization
-eval "$(zoxide init bash)"
-
-# Starship Prompt
-eval "$(starship init bash)"
-
-# Ignore case in command completion
-bind "set completion-ignore-case on"
-
-# Custom Bindings
-bind '"\C-f":"zi\n"'
-
-#alias list_devices='list_all_devices'
-
-list_all_devices() {
-    echo "Scanning local network..."
-    sudo arp-scan --localnet
-    echo -e "\nScanning network 10.0.1.0/24..."
-    sudo arp-scan --interface=enp1s0 10.0.1.0/24
-}
-
-
-# Function to find the active Ethernet interface or use the default
+# Network interface management
 find_interface() {
     local default_interface="enp1s0"
     local interface_name=$(ip -4 addr show up | grep -E '^[0-9]+: ' | grep -v 'docker0' | head -n 1 | awk '{print $2}' | sed 's/://')
@@ -194,7 +165,7 @@ find_interface() {
     echo "$interface_name"
 }
 
-# Alias to set the IP address on the network interface
+# Alias functions for IP management
 alias set_ip='
 interface_name=$(find_interface)
 current_ip=$(ip -4 addr show "$interface_name" | grep "inet 10.0.1.200")
@@ -206,7 +177,6 @@ else
 fi
 '
 
-# Alias to remove the IP address from the network interface
 alias reset_ip='
 interface_name=$(find_interface)
 current_ip=$(ip -4 addr show "$interface_name" | grep "inet 10.0.1.200")
@@ -218,70 +188,64 @@ else
 fi
 '
 
-# -----------------------------------------------------
-# FUNCTIONS
-# -----------------------------------------------------
-
-
-
 # Unmute and max volume for Master
 unmute-all() {
-	amixer sset Master unmute
-	amixer sset Master 100%
+    amixer sset Master unmute
+    amixer sset Master 100%
 }
 
 # Copy file with a progress bar
 cpp() {
-	set -e
-	strace -q -ewrite cp -- "${1}" "${2}" 2>&1 | awk '{
-		count += $NF
-		if (count % 10 == 0) {
-			percent = count / total_size * 100
-			printf "%3d%% [", percent
-			for (i=0;i<=percent;i++)
-				printf "="
-				printf ">"
-				for (i=percent;i<100;i++)
-					printf " "
-					printf "]\r"
-			}
-		}
-	END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+    set -e
+    strace -q -ewrite cp -- "${1}" "${2}" 2>&1 | awk '{
+        count += $NF
+        if (count % 10 == 0) {
+            percent = count / total_size * 100
+            printf "%3d%% [", percent
+            for (i=0;i<=percent;i++)
+                printf "="
+                printf ">"
+                for (i=percent;i<100;i++)
+                    printf " "
+                    printf "]\r"
+            }
+        }
+    END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
 }
 
 # Show current network information
-netinfo () {
-	echo "--------------- Network Information ---------------"
-	/sbin/ifconfig | awk /'inet addr/ {print $2}'
-	echo ""
-	/sbin/ifconfig | awk /'Bcast/ {print $3}'
-	echo ""
-	/sbin/ifconfig | awk /'inet addr/ {print $4}'
-	/sbin/ifconfig | awk /'HWaddr/ {print $4,$5}'
-	echo "---------------------------------------------------"
+netinfo() {
+    echo "--------------- Network Information ---------------"
+    /sbin/ifconfig | awk /'inet addr/ {print $2}'
+    echo ""
+    /sbin/ifconfig | awk /'Bcast/ {print $3}'
+    echo ""
+    /sbin/ifconfig | awk /'inet addr/ {print $4}'
+    /sbin/ifconfig | awk /'HWaddr/ {print $4,$5}'
+    echo "---------------------------------------------------"
 }
 
 # IP address lookup (internal and external)
-whatsmyip () {
-	if [ -e /sbin/ip ]; then
-		echo -n "Internal IP: " 
-		/sbin/ip addr show wlan0 | grep "inet " | awk '{print $2}'
-	else
-		echo -n "Internal IP: "
-		/sbin/ifconfig wlan0 | grep "inet " | awk '{print $2}'
-	fi
-	echo -n "External IP: " 
-	curl -s ifconfig.me
+whatsmyip() {
+    if [ -e /sbin/ip ]; then
+        echo -n "Internal IP: " 
+        /sbin/ip addr show wlan0 | grep "inet " | awk '{print $2}'
+    else
+        echo -n "Internal IP: "
+        /sbin/ifconfig wlan0 | grep "inet " | awk '{print $2}'
+    fi
+    echo -n "External IP: " 
+    curl -s ifconfig.me
 }
 
 # Git reset to origin/main
 git_reset_hard_main() {
-	git fetch origin
-	git reset --hard origin/main
+    git fetch origin
+    git reset --hard origin/main
 }
 
 # Extract various archive formats
-ex () {
+ex() {
   if [ -f "$1" ]; then
     case $1 in
       *.tar.bz2)   tar xjf "$1"   ;;
@@ -303,78 +267,136 @@ ex () {
   fi
 }
 
-# -----------------------------------------------------
+vento() {
+    cd /opt/ventoy && sudo bash ./VentoyWeb.sh
+}
 
+# Function to get list of Ollama models
+list_ollama_models() {
+    echo -e "${yellow}Ollama Models Available:${green}"
+    if command -v ollama &> /dev/null; then
+        ollama list | awk 'NR>1 {print $1}'
+    else
+        echo -e "${red}Error: Ollama command not found. Is Ollama installed?${reset}"
+    fi
+}
 
-vento (){
-cd /opt/ventoy && sudo bash ./VentoyWeb.sh
+# Function to list virtual machines and their statuses
+list_vm_status() {
+    echo -e "${yellow} Virtual Machines and Their Status:${green}"
+    virsh --connect qemu:///system list --all
+    
+    if [ $? -ne 0 ]; then
+        echo -e "${red}Error: Unable to retrieve VM information.${reset}"
+    fi
+}
+
+# Function to get Docker status and port information
+docker_status() {
+    echo -e "${yellow} Docker Status:${green}"
+    docker info --format '{{.ServerVersion}} - {{.Name}}'
+    echo -e "${yellow} Docker Port Mappings:${green}"
+    docker ps --format "table {{.Names}}\t{{.Ports}}"
 }
 
 # -----------------------------------------------------
-# FUNCTION: Welcome Message
+# WELCOME MESSAGE
 # -----------------------------------------------------
 
 welcome_message() {
     # Set colors
-    red='\033[0;31m'     # Red for warnings or critical alerts
-    green='\033[0;32m'   # Green for standard information
-    yellow='\033[0;33m'  # Yellow for highlights or important details
-    reset='\033[0m'      # Reset color
+    red='\033[0;31m'
+    green='\033[0;32m'
+    yellow='\033[0;33m'
+    blue='\033[0;34m'
+    reset='\033[0m'
+
+    # Get SSH service status
+    ssh_status=$(systemctl is-active sshd)
+    if [ "$ssh_status" = "active" ]; then
+        ssh_status="${green}Running${reset}"
+    else
+        ssh_status="${red}Stopped${reset}"
+    fi
 
     # Welcome banner
-    figlet -f slant "${green} Welcome"
+    figlet -f slant "${green}Welcome to Fedora"
 
     echo "==============================================================="
+    
+    # Fedora version
+    echo -e "${yellow}Fedora Version\t\t:${green} $(cat /etc/fedora-release)"
     
     # Date and time
-    echo -ne "${yellow} Today \t\t\t: ${green}$(date)"
-    echo ""
+    echo -e "${yellow}Current Date/Time\t:${green} $(date)"
 
     # Kernel information
-    echo -e "${yellow} Kernel Information\t:${green} $(uname -smr)"
+    echo -e "${yellow}Kernel Information\t:${green} $(uname -smr)"
     
     # Current directory
-    echo -e "${yellow} Your Location\t\t:${green} $(pwd)"
+    echo -e "${yellow}Current Directory\t:${green} $(pwd)"
     
     echo "==============================================================="
 
-    # Internal IP address
+    # User information
+    echo -e "${yellow}Logged in as\t\t:${green} $(whoami)"
+    echo -e "${yellow}User's home\t\t:${green} $HOME"
+    
+    # IP addresses
     internal_ip=$(hostname -I | awk '{print $1}')
-    echo -e "${yellow} Internal IP\t\t:${green} $internal_ip"
-    
-    # External IP address
     external_ip=$(curl -s ifconfig.me)
-    echo -e "${yellow} External IP\t\t:${green} $external_ip"
+    echo -e "${yellow}Internal IP\t\t:${green} $internal_ip"
+    echo -e "${yellow}External IP\t\t:${green} $external_ip"
     
     echo "==============================================================="
 
-    # System Uptime
-    echo -e "${yellow} System Uptime\t\t:${green} $(uptime -p)"
-
-    # CPU Load
-    echo -e "${yellow} CPU Load\t\t:${green} $(uptime | awk -F'load average: ' '{ print $2 }')"
-
-    # Memory Usage
-    echo -e "${yellow} Memory Usage\t\t:${green} $(free -h | awk '/^Mem/ {print $3 "/" $2}')"
-
-    # Disk Usage
-    echo -e "${yellow} Disk Usage\t\t:${green} $(df -h / | awk '/\// {print $5 " (" $3 "/" $2 ")"}')"
+    # System information
+    echo -e "${yellow}Hostname\t\t:${green} $(hostname)"
+    echo -e "${yellow}System Uptime\t\t:${green} $(uptime -p)"
+    echo -e "${yellow}CPU Load\t\t:${green} $(uptime | awk -F'load average: ' '{ print $2 }')"
+    echo -e "${yellow}Memory Usage\t\t:${green} $(free -h | awk '/^Mem/ {print $3 "/" $2}')"
+    echo -e "${yellow}Disk Usage\t\t:${green} $(df -h / | awk '/\// {print $5 " (" $3 "/" $2 ")"}')"
+    echo -e "${yellow}CPU Info:${green} $(lscpu | grep 'Model name' | cut -f 2 -d ":")"
+    echo -e "${yellow}GPU Info\t\t:${green} $(lspci | grep -i vga | cut -d ":" -f3)"
+    echo -e "${yellow}SSH Service\t\t:${ssh_status}"
 
     echo "==============================================================="
 
-    # Check and display IP address for a specific network interface (e.g., enp1s0)
+    # Package information
+    echo -e "${yellow}Installed Packages\t:${green} $(rpm -qa | wc -l)"
+    echo -e "${yellow}Available Updates\t:${green} $(dnf check-update --quiet | grep -v "^$" | wc -l)"
+
+    echo "==============================================================="
+
+    # Network interface information
     gateway_interface=$(ip -o link show | grep -E 'enp|eth|wlan' | awk -F': ' '{print $2}' | head -n 1)
-    
     if [ -n "$gateway_interface" ]; then
         gateway_ip=$(ip -o -4 addr list "$gateway_interface" | awk '{print $4}' | cut -d/ -f1)
         if [ -n "$gateway_ip" ]; then
-            echo -e "${yellow} Gateway Interface (${gateway_interface}) IP:${green} $gateway_ip"
+            echo -e "${yellow}Gateway Interface (${gateway_interface}) IP:${green} $gateway_ip"
         else
-            echo -e "${red} Warning: No IP assigned to gateway interface ${gateway_interface}.${reset}"
+            echo -e "${red}Warning: No IP assigned to gateway interface ${gateway_interface}.${reset}"
         fi
     else
-        echo -e "${red} Warning: No network interface matching enp or eth found.${reset}"
+        echo -e "${red}Warning: No network interface matching enp or eth found.${reset}"
     fi
+    
+    echo "==============================================================="
+
+    # Virtual Machine Status
+    echo -e "${yellow}Virtual Machine Status:${green}"
+    list_vm_status
+    
+    echo "==============================================================="
+
+    # Docker Status and Port Mappings
+    docker_status
+    
+    echo "==============================================================="
+
+    # Ollama Models
+    echo -e "${yellow}Ollama Models:${green}"
+    list_ollama_models
     
     echo "==============================================================="
 
@@ -394,22 +416,49 @@ welcome_message() {
     echo "==============================================================="
     
     # List connected Bluetooth devices
-    echo -e "${yellow} Bluetooth Devices\t:${green}"
+    echo -e "${yellow}Bluetooth Devices\t:${green}"
     bluetoothctl devices Connected | awk -F ' ' '{print $3,$4,$5}'
     
-    echo "====================== W E L L C O M E ========================"
+    echo "==============================================================="
+
+    # SELinux status
+    echo -e "${yellow}SELinux Status\t\t:${green} $(getenforce)"
+
+    # Firewall status
+    echo -e "${yellow}Firewall Status\t\t:${green} $(systemctl is-active firewalld)"
+
+    # Last system boot
+    echo -e "${yellow}Last System Boot\t:${green} $(who -b | awk '{print $3,$4}')"
+
+    # Last logged in users
+    echo -e "${yellow}Last Logins:${green}"
+    last -n 5 | head -n 5
+
+    echo "====================== W E L C O M E ========================"
     
     # Reset colors
     echo -e "${reset}"
 }
+# -----------------------------------------------------
+# INITIALIZATIONS
+# -----------------------------------------------------
 
+# Enable bash programmable completion features
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
 
-export OLLAMA_API_BASE="http://localhost:11434"
+# Zoxide Initialization
+eval "$(zoxide init bash)"
 
-# Run the function upon terminal startup
+# Starship Prompt
+eval "$(starship init bash)"
+
+# Run welcome message on startup
 welcome_message
 
 # -----------------------------------------------------
 # END OF ~/.bashrc
 # -----------------------------------------------------
-
