@@ -81,6 +81,12 @@ packages=(
     xautolock
     slock
     arp-scan
+    xbindkeys
+    xdotool
+    thunar-volman
+    tesseract 
+    tesseract-langpack-eng
+    gitkraken
 )
 
 # Install packages if not already installed
