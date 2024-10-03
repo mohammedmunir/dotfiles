@@ -86,7 +86,17 @@ packages=(
     thunar-volman
     tesseract 
     tesseract-langpack-eng
-    gitkraken
+    fish
+    gnome-bluetooth
+    gnome-shell-extension-manager
+    gnome-software
+    gnome-software-plugin-flatpak
+    gnome-software-plugin-snap
+    gnome-tweaks
+    gnome-weather
+    hardinfo
+    hw-probe
+    snapd
 )
 
 # Install packages if not already installed
@@ -192,6 +202,14 @@ sudo usermod -aG libvirt $(whoami)
 
 #make thorium browser default
 xdg-settings get default-web-browser
+
+# prevention ads - tracking - hblock
+# https://github.com/hectorm/hblock
+git clone https://github.com/hectorm/hblock  /tmp/hblock
+cd /tmp/hblock
+sudo make install
+hblock
+
 
 
 

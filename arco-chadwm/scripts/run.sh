@@ -35,7 +35,7 @@ xautolock -time 10 -locker slock &  # Auto-lock after 10 minutes
 
 # Start virtual machines
 run "virsh --connect qemu:///system start win11-base"            # Start Windows 11 VM
-~/dotfiles/arco-chadwm/scripts/launch_vm.sh &                    # Custom VM launch script
+run "virsh --connect qemu:///system start ubuntu"            # Start ubuntu
 
 # Kill and restart the bar
 pkill bar.sh
