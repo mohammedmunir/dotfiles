@@ -1,9 +1,9 @@
 
 #!/bin/bash
 
-vm_name="win11-base"
+vm_name="microwin"
 win11user="abu"
-win11pass="munir52"
+win11pass="mm"
 
 # Check the status of the VM
 vm_status=$(virsh --connect qemu:///system domstate $vm_name)

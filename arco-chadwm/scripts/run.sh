@@ -34,7 +34,7 @@ feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &  # Set secon
 xautolock -time 10 -locker slock &  # Auto-lock after 10 minutes
 
 # Start virtual machines
-run "virsh --connect qemu:///system start win11-base"            # Start Windows 11 VM
+run "virsh --connect qemu:///system start microwin"            # Start Windows 11 VM
 run "virsh --connect qemu:///system start ubuntu"            # Start ubuntu
 
 # Kill and restart the bar

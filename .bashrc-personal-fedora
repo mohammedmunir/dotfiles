@@ -69,6 +69,8 @@ alias QtileWayland='qtile start -b wayland'
 alias xfce='exec startxfce4'
 alias chadwm='startx ~/dotfiles/arco-chadwm/scripts/run.sh'
 alias flexidwm='startx ~/dotfiles/flexi/autostart.sh'
+alias cosmic='startx gnome-session --session=pop'
+
 
 # Docker Management
 alias dps='docker ps -a'
@@ -300,6 +302,15 @@ docker_status() {
     docker ps --format "table {{.Names}}\t{{.Ports}}"
 }
 
+function project_overview() {
+  local output_file="${1:-project_structure_and_code.txt}"
+  local depth="${2:-8}"
+  (tree -L "$depth" -I '.git|.vscode' && \
+   find . -type f -not -path '*/\.git/*' -not -path '*/\.vscode/*' \
+   -exec echo {} \; -exec cat {} \; -exec echo \;) > "$output_file"
+  echo "Project overview saved to $output_file"
+}
+
 # -----------------------------------------------------
 # WELCOME MESSAGE
 # -----------------------------------------------------
@@ -458,7 +469,7 @@ eval "$(zoxide init bash)"
 eval "$(starship init bash)"
 
 # Run welcome message on startup
-welcome_message
+# welcome_message
 
 # -----------------------------------------------------
 # END OF ~/.bashrc
