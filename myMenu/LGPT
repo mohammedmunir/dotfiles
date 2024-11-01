@@ -2,4 +2,4 @@
 #  
 # ----------------------------------------------------- 
 
-thorium-browser --app=http://localhost:8080/
+thorium-browser --app=http://chat.mohomes.uk/

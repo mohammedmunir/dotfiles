@@ -2,7 +2,7 @@
 
 # Ollama model directory and external drive mount point
 OLLAMA_DIR="/usr/share/ollama/.ollama/models"
-BACKUP_DIR="/run/media/abu/Elements/Ollama_Backup"
+BACKUP_DIR="/mnt/element/"
 
 # Function to back up files
 backup_ollama() {
