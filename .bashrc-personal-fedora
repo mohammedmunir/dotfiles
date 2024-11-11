@@ -306,9 +306,37 @@ docker_status() {
 function project_overview() {
   local output_file="${1:-project_structure_and_code.txt}"
   local depth="${2:-8}"
-  (tree -L "$depth" -I '.git|.vscode' && \
-   find . -type f -not -path '*/\.git/*' -not -path '*/\.vscode/*' \
-   -exec echo {} \; -exec cat {} \; -exec echo \;) > "$output_file"
+  
+  # Define exclusions once in an array
+  local -a excludes=(
+    "temp123.txt"
+    ".git"
+    ".vscode"
+    "node_modules"
+  )
+  
+  # Join array with | for tree command
+  local tree_exclude=$(IFS="|"; echo "${excludes[*]}")
+  
+  # Build find exclusions dynamically
+  local find_exclude=""
+  for item in "${excludes[@]}"; do
+    # If it's a directory (starts with .), exclude its path
+    if [[ "$item" == .* ]]; then
+      find_exclude+=" -not -path '*/${item}/*'"
+    else
+      find_exclude+=" -not -name '${item}'"
+    fi
+  done
+  
+  (
+    # Print directory structure
+    tree -L "$depth" -I "$tree_exclude" && \
+    
+    # Find and print files (using eval to process the built find_exclude string)
+    eval "find . ${find_exclude} -type f -exec echo {} \; -exec cat {} \; -exec echo \;"
+  ) > "$output_file"
+  
   echo "Project overview saved to $output_file"
 }
 
