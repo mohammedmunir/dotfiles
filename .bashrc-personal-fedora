@@ -150,6 +150,7 @@ alias gr='python ~/dotfiles/scripts/growthrate.py'
 alias ChatGPT='python ~/mychatgpt/mychatgpt.py'
 alias chat='python ~/mychatgpt/mychatgpt.py'
 alias ascii='~/dotfiles/scripts/figlet.sh'
+alias startSillyTavern='cd /home/abu/Documents/Repos/SillyTavern && nohup ./start.sh > /dev/null 2>&1 &'
 
 # -----------------------------------------------------
 # FUNCTIONS
