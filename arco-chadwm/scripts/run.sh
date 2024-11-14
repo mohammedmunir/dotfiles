@@ -46,7 +46,7 @@ xbindkeys &                                   # Start xbindkeys for keybindings
 volumeicon &
 
 # Start SillyTavern
-cd /home/abu/Documents/Repos/SillyTavern && nohup ./start.sh > /dev/null 2>&1 &
+#cd /home/abu/Documents/Repos/SillyTavern && nohup ./start.sh > /dev/null 2>&1 &
 
 # Launch chadwm in a loop, restart on crash
 while type chadwm >/dev/null; do

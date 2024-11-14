@@ -307,35 +307,48 @@ function project_overview() {
   local output_file="${1:-project_structure_and_code.txt}"
   local depth="${2:-8}"
   
-  # Define exclusions once in an array
+  # Define exclusions
   local -a excludes=(
-    "temp123.txt"
+    "logs"
+    "project_structure_and_code.txt"
+    "readme.md"
+    "readme_no2.md"
     ".git"
     ".vscode"
     "node_modules"
+    "sim-management-setup-script.sh"   
+    "up.sh"
+    "error_log"    
   )
-  
+
   # Join array with | for tree command
   local tree_exclude=$(IFS="|"; echo "${excludes[*]}")
   
-  # Build find exclusions dynamically
-  local find_exclude=""
+  # Create find command with proper exclusions
+  local find_cmd="find ."
   for item in "${excludes[@]}"; do
-    # If it's a directory (starts with .), exclude its path
     if [[ "$item" == .* ]]; then
-      find_exclude+=" -not -path '*/${item}/*'"
+      # Directory exclusion (starts with dot)
+      find_cmd+=" -not -path \"*/$item/*\""
     else
-      find_exclude+=" -not -name '${item}'"
+      # File exclusion
+      find_cmd+=" -not -name \"$item\""
     fi
   done
+  
+  find_cmd+=" -type f -exec echo {} \; -exec cat {} \; -exec echo \;"
   
   (
     # Print directory structure
     tree -L "$depth" -I "$tree_exclude" && \
     
-    # Find and print files (using eval to process the built find_exclude string)
-    eval "find . ${find_exclude} -type f -exec echo {} \; -exec cat {} \; -exec echo \;"
+    # Execute the find command
+    eval "$find_cmd"
   ) > "$output_file"
+  
+  # Debug output - uncomment to see the actual command being run
+  # echo "Tree command: tree -L $depth -I \"$tree_exclude\""
+  # echo "Find command: $find_cmd"
   
   echo "Project overview saved to $output_file"
 }
@@ -480,6 +493,10 @@ welcome_message() {
     # Reset colors
     echo -e "${reset}"
 }
+
+alias ollama-qwen-download="ollama pull qwen2.5-coder:32b"
+
+
 # -----------------------------------------------------
 # INITIALIZATIONS
 # -----------------------------------------------------
