@@ -9,7 +9,7 @@ run() {
 
 # System tray and notification applications
 run "nm-applet"                              # Network manager applet
-run "variety"                                # Wallpaper changer
+#run "variety"                                # Wallpaper changer
 run "xfce4-power-manager"                    # Power management
 run "blueberry-tray"                         # Bluetooth manager
 run "/usr/lib/xfce4/notifyd/xfce4-notifyd"   # Notification daemon

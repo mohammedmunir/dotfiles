@@ -34,6 +34,9 @@ static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "togg
 static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
 static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
 static const int new_window_attach_on_end = 0; /*  1 means the new window will attach on the end; 0 means the new window will attach on the front,default is front */
+
+static const unsigned int altTabN = 3;      // number of alt-tab windows to show at once
+
 #define ICONSIZE 19   /* icon size */
 #define ICONSPACING 8 /* space between icon and title */
 
@@ -41,6 +44,7 @@ static const char *fonts[]          = {"JetBrainsMono Nerd Font Mono:style:bold:
 
 // theme
 #include "themes/onedark.h"
+#include "alttab.h"
 //#include "themes/prime.h"
 //#include "themes/catppuccin.h"
 //#include "themes/dracula.h"
@@ -287,29 +291,25 @@ static const Key keys[] = {
     { MODKEY,                           XK_i,       hidewin,        {0} },
     { MODKEY|ShiftMask,                 XK_i,       restorewin,     {0} },
 
+
+    { Mod1Mask,                         XK_Tab,     altTabStart,    {0} },
+    { Mod1Mask|ShiftMask,              XK_Tab,     altTabStart,    {.i = 1 } },
+    { Mod1Mask,                         XK_q,       altTabEnd,      {0} },
+
+
     // qwerty keyboard
 
-    //TAGKEYS(                            XK_1,                       0)
-    //TAGKEYS(                            XK_2,                       1)
-    //TAGKEYS(                            XK_3,                       2)
-    //TAGKEYS(                            XK_4,                       3)
-    //TAGKEYS(                            XK_5,                       4)
-    //TAGKEYS(                            XK_6,                       5)
-    //TAGKEYS(                            XK_7,                       6)
-    //TAGKEYS(                            XK_8,                       7)
-    //TAGKEYS(                            XK_9,                       8)
+    TAGKEYS(                            XK_1,                       0)
+    TAGKEYS(                            XK_2,                       1)
+    TAGKEYS(                            XK_3,                       2)
+    TAGKEYS(                            XK_4,                       3)
+    TAGKEYS(                            XK_5,                       4)
+    TAGKEYS(                            XK_6,                       5)
+    TAGKEYS(                            XK_7,                       6)
+    TAGKEYS(                            XK_8,                       7)
+    TAGKEYS(                            XK_9,                       8)
 
-    // azerty keyboard (Belgium)
-    TAGKEYS(                               XK_ampersand,                0)
-    TAGKEYS(                               XK_eacute,                   1)
-    TAGKEYS(                               XK_quotedbl,                 2)
-    TAGKEYS(                               XK_apostrophe,               3)
-    TAGKEYS(                               XK_parenleft,                4)
-    TAGKEYS(                               XK_section,                  5)
-    TAGKEYS(                               XK_egrave,                   6)
-    TAGKEYS(                               XK_exclam,                   7)
-    TAGKEYS(                               XK_ccedilla,                 8)
-
+    
 };
 
 /* button definitions */
