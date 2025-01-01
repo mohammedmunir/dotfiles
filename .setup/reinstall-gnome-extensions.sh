@@ -7,3 +7,4 @@ gnome-extensions install dash-to-dock@micxgx.gmail.com
 gnome-extensions install just-perfection-desktop@just-perfection
 gnome-extensions install blur-my-shell@aunetx
 gnome-extensions install Vitals@CoreCoding.com
+gnome-extensions install GSConnect@andyholmes.github.io
