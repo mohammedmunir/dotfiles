@@ -1,0 +1,9 @@
+gnome-extensions install workspace-indicator@gnome-shell-extensions.gcampax.github.com
+gnome-extensions install system-monitor@gnome-shell-extensions.gcampax.github.com
+gnome-extensions install background-logo@fedorahosted.org
+gnome-extensions install pop-shell@system76.com
+gnome-extensions install space-bar@luchrioh
+gnome-extensions install dash-to-dock@micxgx.gmail.com
+gnome-extensions install just-perfection-desktop@just-perfection
+gnome-extensions install blur-my-shell@aunetx
+gnome-extensions install Vitals@CoreCoding.com
