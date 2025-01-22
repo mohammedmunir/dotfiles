@@ -41,6 +41,8 @@ alias setkb='setxkbmap gb && echo "Keyboard set back to gb."'
 alias unlock="sudo rm /var/lib/pacman/db.lck"
 alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
 alias gui="sudo systemctl isolate graphical.target"
+alias vol+="pactl set-sink-volume @DEFAULT_SINK@ +5%"
+alias vol-="pactl set-sink-volume @DEFAULT_SINK@ -5%"
 
 # File and Directory Management
 alias v='nvim'
