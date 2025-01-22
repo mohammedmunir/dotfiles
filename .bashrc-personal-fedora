@@ -70,6 +70,7 @@ alias xfce='exec startxfce4'
 #alias chadwm='startx ~/dotfiles/arco-chadwm/scripts/run.sh'
 alias flexidwm='startx ~/dotfiles/flexi/autostart.sh'
 alias cosmic='startx gnome-session --session=pop'
+alias cosmic2='exec cosmic-session'
 
 alias chadwm='startx ~/dotfiles/arco-chadwm/scripts/run.sh > ~/.chadwm.log 2>&1'
 alias chadwmlog='tail -f ~/.chadwm.log'
