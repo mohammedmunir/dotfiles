@@ -16,6 +16,8 @@ run "/usr/lib/xfce4/notifyd/xfce4-notifyd"   # Notification daemon
 run "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"  # Polkit authentication agent
 run "/usr/libexec/polkit-gnome-authentication-agent-1"           # Polkit authentication agent (Fedora)
 run "nm-applet"  # Network manager applet for Wi-Fi and network management
+blueman-applet &
+
 
 # Compositor and utility applications
 picom &                                      # Compositor for transparency and effects
